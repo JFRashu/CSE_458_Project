@@ -521,9 +521,17 @@ const App = () => {
         
         <button
           onClick={handleClose}
-          className="absolute top-6 right-6 text-white hover:bg-white hover:bg-opacity-20 rounded-full p-2 transition-all z-20"
+          className="absolute top-6 right-6 text-white hover:bg-white hover:bg-opacity-20 rounded-full p-3 transition-all z-20 shadow-lg"
+          title="Close"
         >
           <X size={28} />
+        </button>
+
+        <button
+          onClick={handleClose}
+          className="absolute top-6 left-6 text-white bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl px-6 py-3 transition-all z-20 shadow-lg font-semibold"
+        >
+          ← Back to Emotions
         </button>
 
         <div className="max-w-2xl w-full bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl p-12 shadow-2xl z-10">
