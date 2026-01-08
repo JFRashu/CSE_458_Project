@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { emotionsData } from '../data/emotionsData';
 import AnimationBackground from '../components/AnimationBackground';
+import { useNavigate } from '../utils/navigation';
 
-const HomePage = ({ navigate }) => {
+const HomePage = ({ navigate: propNavigate }) => {
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate() || propNavigate; // Use hook or fallback to prop
   const [selectedEmotion, setSelectedEmotion] = useState(null);
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -49,41 +51,41 @@ const HomePage = ({ navigate }) => {
         <AnimationBackground type={data.animation} />
         
         <div className={`relative z-10 min-h-screen flex items-center justify-center p-4 transition-opacity duration-500 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
-          <div className="max-w-2xl w-full">
-            <button
-              onClick={handleClose}
-              className={`mb-6 ${data.textColor} hover:${data.textColor}/90 flex items-center gap-2 transition-all transform hover:translate-x-1 group drop-shadow-lg font-semibold text-lg`}
-            >
-              <span className="transform group-hover:-translate-x-1 transition-transform">←</span> Back
-            </button>
+          <div className="max-w-lg w-full">
+            <div className={`relative ${data.cardBg} backdrop-blur-2xl rounded-3xl p-6 md:p-8 shadow-xl border border-white/60`}>
+              <button
+                onClick={handleClose}
+                className={`absolute top-4 right-4 ${data.textColor} hover:${data.textColor}/90 flex items-center justify-center w-10 h-10 rounded-full transition-all transform hover:scale-110 group drop-shadow-lg font-semibold text-lg bg-white/20 hover:bg-white/30 backdrop-blur-sm z-10`}
+              >
+                <X size={20} className="drop-shadow-lg" />
+              </button>
 
-            <div className={`${data.cardBg} backdrop-blur-2xl rounded-3xl p-8 md:p-12 shadow-xl border border-white/60`}>
-              <div className="flex items-center gap-4 mb-8">
-                <div className={`${data.accentBg} p-4 rounded-2xl shadow-lg backdrop-blur-sm`}>
-                  <Icon size={40} className={`${data.textColor} drop-shadow-lg`} />
+              <div className="flex items-center gap-4 mb-6">
+                <div className={`${data.accentBg} p-3 rounded-2xl shadow-lg backdrop-blur-sm`}>
+                  <Icon size={32} className={`${data.textColor} drop-shadow-lg`} />
                 </div>
-                <h2 className={`text-4xl md:text-5xl font-bold ${data.textColor} drop-shadow-lg`}>{data.name}</h2>
+                <h2 className={`text-3xl md:text-4xl font-bold ${data.textColor} drop-shadow-lg`}>{data.name}</h2>
               </div>
 
-              <div className="mb-8 relative bg-white/40 rounded-2xl p-6 backdrop-blur-sm">
-                <div className={`absolute -left-2 -top-2 text-6xl ${data.textColor}/20`}>"</div>
-                <p className={`text-xl md:text-2xl ${data.textColor} leading-relaxed pl-8 italic font-medium drop-shadow-md`}>
+              <div className="mb-6 relative bg-white/40 rounded-2xl p-4 backdrop-blur-sm">
+                <div className={`absolute -left-2 -top-2 text-4xl ${data.textColor}/20`}>"</div>
+                <p className={`text-lg md:text-xl ${data.textColor} leading-relaxed pl-6 italic font-medium drop-shadow-md`}>
                   {quote}
                 </p>
-                <div className={`absolute -right-2 -bottom-6 text-6xl ${data.textColor}/20`}>"</div>
+                <div className={`absolute -right-2 -bottom-4 text-4xl ${data.textColor}/20`}>"</div>
               </div>
 
-              <div className={`${data.accentBg} rounded-2xl p-6 backdrop-blur-sm border border-white/40 mb-6`}>
-                <div className="flex items-center gap-3 mb-3">
-                  <Heart size={24} className={`${data.textColor} drop-shadow-md`} />
-                  <h3 className={`text-xl font-semibold ${data.textColor} drop-shadow-md`}>Try This:</h3>
+              <div className={`${data.accentBg} rounded-2xl p-4 backdrop-blur-sm border border-white/40 mb-5`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <Heart size={20} className={`${data.textColor} drop-shadow-md`} />
+                  <h3 className={`text-lg font-semibold ${data.textColor} drop-shadow-md`}>Try This:</h3>
                 </div>
-                <p className={`${data.textColor} text-lg leading-relaxed drop-shadow-sm`}>{tip}</p>
+                <p className={`${data.textColor} text-base leading-relaxed drop-shadow-sm`}>{tip}</p>
               </div>
 
               <button
                 onClick={() => setCurrentQuoteIndex((currentQuoteIndex + 1) % data.quotes.length)}
-                className={`w-full bg-gradient-to-r ${data.accentBg} hover:${data.accentBg.replace('/80', '/90')} backdrop-blur-md ${data.textColor} font-bold text-lg py-4 rounded-2xl transition-all border border-white/50 shadow-lg transform hover:scale-[1.02] active:scale-[0.98] drop-shadow-lg`}
+                className={`w-full bg-gradient-to-r ${data.accentBg} hover:${data.accentBg.replace('/80', '/90')} backdrop-blur-md ${data.textColor} font-bold text-base py-3 rounded-2xl transition-all border border-white/50 shadow-lg transform hover:scale-[1.02] active:scale-[0.98] drop-shadow-lg`}
               >
                 Get Another Quote ✨
               </button>
