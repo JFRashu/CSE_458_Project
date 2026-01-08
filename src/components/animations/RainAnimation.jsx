@@ -6,17 +6,27 @@ const RainAnimation = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+
+    // Handle device pixel ratio for crisp rendering
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+
+    // Responsive particle count based on screen size
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 80 : 150;
 
     const raindrops = [];
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < particleCount; i++) {
       raindrops.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        length: Math.random() * 25 + 15,
-        speed: Math.random() * 4 + 3,
-        opacity: Math.random() * 0.6 + 0.3
+        x: Math.random() * rect.width,
+        y: Math.random() * rect.height,
+        length: Math.random() * (isMobile ? 15 : 25) + (isMobile ? 10 : 15),
+        speed: Math.random() * (isMobile ? 2 : 4) + (isMobile ? 2 : 3),
+        opacity: Math.random() * 0.4 + 0.2
       });
     }
 
@@ -24,34 +34,34 @@ const RainAnimation = () => {
     let lightning = { active: false, x: 0, opacity: 0, branches: [] };
 
     const createLightning = () => {
-      lightning.x = Math.random() * canvas.width;
+      lightning.x = Math.random() * rect.width;
       lightning.opacity = 1;
       lightning.active = true;
       lightning.branches = [];
-      
+
       let currentX = lightning.x;
       let currentY = 0;
-      
-      for (let i = 0; i < 15; i++) {
-        const nextX = currentX + (Math.random() - 0.5) * 60;
-        const nextY = currentY + Math.random() * 40 + 30;
+
+      for (let i = 0; i < (isMobile ? 8 : 15); i++) {
+        const nextX = currentX + (Math.random() - 0.5) * (isMobile ? 40 : 60);
+        const nextY = currentY + Math.random() * (isMobile ? 25 : 40) + (isMobile ? 20 : 30);
         lightning.branches.push({ x1: currentX, y1: currentY, x2: nextX, y2: nextY });
         currentX = nextX;
         currentY = nextY;
       }
     };
 
-    let lightningTimer = Math.random() * 200 + 100;
+    let lightningTimer = Math.random() * 300 + 200;
 
     const animate = () => {
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.1)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.08)';
+      ctx.fillRect(0, 0, rect.width, rect.height);
 
       if (lightning.active) {
-        ctx.shadowBlur = 20;
+        ctx.shadowBlur = isMobile ? 15 : 20;
         ctx.shadowColor = '#60A5FA';
         ctx.strokeStyle = `rgba(147, 197, 253, ${lightning.opacity})`;
-        ctx.lineWidth = 3;
+        ctx.lineWidth = isMobile ? 2 : 3;
         lightning.branches.forEach(branch => {
           ctx.beginPath();
           ctx.moveTo(branch.x1, branch.y1);
@@ -59,41 +69,43 @@ const RainAnimation = () => {
           ctx.stroke();
         });
         ctx.shadowBlur = 0;
-        lightning.opacity -= 0.05;
+        lightning.opacity -= 0.03;
         if (lightning.opacity <= 0) lightning.active = false;
       }
 
       raindrops.forEach(drop => {
         ctx.beginPath();
         ctx.strokeStyle = `rgba(147, 197, 253, ${drop.opacity})`;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = isMobile ? 1.5 : 2;
         ctx.moveTo(drop.x, drop.y);
-        ctx.lineTo(drop.x - 3, drop.y + drop.length);
+        ctx.lineTo(drop.x - (isMobile ? 2 : 3), drop.y + drop.length);
         ctx.stroke();
 
         drop.y += drop.speed;
-        if (drop.y > canvas.height) {
+        if (drop.y > rect.height) {
           drop.y = -drop.length;
-          drop.x = Math.random() * canvas.width;
-          ripples.push({ x: drop.x, y: canvas.height - 50, radius: 0, opacity: 1 });
+          drop.x = Math.random() * rect.width;
+          if (Math.random() < 0.1) { // Reduced ripple frequency for performance
+            ripples.push({ x: drop.x, y: rect.height - (isMobile ? 30 : 50), radius: 0, opacity: 1 });
+          }
         }
       });
 
       ripples.forEach((ripple, index) => {
         ctx.beginPath();
         ctx.strokeStyle = `rgba(147, 197, 253, ${ripple.opacity})`;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = isMobile ? 1.5 : 2;
         ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
         ctx.stroke();
-        ripple.radius += 2;
-        ripple.opacity -= 0.02;
+        ripple.radius += isMobile ? 1.5 : 2;
+        ripple.opacity -= 0.015;
         if (ripple.opacity <= 0) ripples.splice(index, 1);
       });
 
       lightningTimer--;
       if (lightningTimer <= 0) {
         createLightning();
-        lightningTimer = Math.random() * 300 + 150;
+        lightningTimer = Math.random() * (isMobile ? 400 : 500) + (isMobile ? 300 : 400);
       }
 
       requestAnimationFrame(animate);
@@ -102,15 +114,23 @@ const RainAnimation = () => {
     animate();
 
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const newRect = canvas.getBoundingClientRect();
+      canvas.width = newRect.width * devicePixelRatio;
+      canvas.height = newRect.height * devicePixelRatio;
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+
+      // Update particle positions for new size
+      raindrops.forEach(drop => {
+        drop.x = Math.min(drop.x, newRect.width);
+        drop.y = Math.min(drop.y, newRect.height);
+      });
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ imageRendering: 'auto' }} />;
 };
 
 export default RainAnimation;

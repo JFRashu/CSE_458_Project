@@ -52,38 +52,38 @@ const HomePage = ({ navigate }) => {
           <div className="max-w-2xl w-full">
             <button
               onClick={handleClose}
-              className="mb-6 text-white hover:text-white/90 flex items-center gap-2 transition-all transform hover:translate-x-1 group drop-shadow-lg font-semibold text-lg"
+              className={`mb-6 ${data.textColor} hover:${data.textColor}/90 flex items-center gap-2 transition-all transform hover:translate-x-1 group drop-shadow-lg font-semibold text-lg`}
             >
               <span className="transform group-hover:-translate-x-1 transition-transform">←</span> Back
             </button>
 
-            <div className="bg-white/15 backdrop-blur-3xl rounded-3xl p-8 md:p-12 shadow-2xl border border-white/30">
+            <div className={`${data.cardBg} backdrop-blur-2xl rounded-3xl p-8 md:p-12 shadow-xl border border-white/60`}>
               <div className="flex items-center gap-4 mb-8">
-                <div className="bg-white/25 p-4 rounded-2xl shadow-lg backdrop-blur-sm">
-                  <Icon size={40} className="text-white drop-shadow-lg" />
+                <div className={`${data.accentBg} p-4 rounded-2xl shadow-lg backdrop-blur-sm`}>
+                  <Icon size={40} className={`${data.textColor} drop-shadow-lg`} />
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">{data.name}</h2>
+                <h2 className={`text-4xl md:text-5xl font-bold ${data.textColor} drop-shadow-lg`}>{data.name}</h2>
               </div>
 
-              <div className="mb-8 relative bg-white/5 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="absolute -left-2 -top-2 text-6xl text-white/30">"</div>
-                <p className="text-xl md:text-2xl text-white leading-relaxed pl-8 italic font-medium drop-shadow-md">
+              <div className="mb-8 relative bg-white/40 rounded-2xl p-6 backdrop-blur-sm">
+                <div className={`absolute -left-2 -top-2 text-6xl ${data.textColor}/20`}>"</div>
+                <p className={`text-xl md:text-2xl ${data.textColor} leading-relaxed pl-8 italic font-medium drop-shadow-md`}>
                   {quote}
                 </p>
-                <div className="absolute -right-2 -bottom-6 text-6xl text-white/30">"</div>
+                <div className={`absolute -right-2 -bottom-6 text-6xl ${data.textColor}/20`}>"</div>
               </div>
 
-              <div className="bg-white/15 rounded-2xl p-6 backdrop-blur-sm border border-white/20 mb-6">
+              <div className={`${data.accentBg} rounded-2xl p-6 backdrop-blur-sm border border-white/40 mb-6`}>
                 <div className="flex items-center gap-3 mb-3">
-                  <Heart size={24} className="text-white drop-shadow-md" />
-                  <h3 className="text-xl font-semibold text-white drop-shadow-md">Try This:</h3>
+                  <Heart size={24} className={`${data.textColor} drop-shadow-md`} />
+                  <h3 className={`text-xl font-semibold ${data.textColor} drop-shadow-md`}>Try This:</h3>
                 </div>
-                <p className="text-white text-lg leading-relaxed drop-shadow-sm">{tip}</p>
+                <p className={`${data.textColor} text-lg leading-relaxed drop-shadow-sm`}>{tip}</p>
               </div>
 
               <button
                 onClick={() => setCurrentQuoteIndex((currentQuoteIndex + 1) % data.quotes.length)}
-                className="w-full bg-gradient-to-r from-white/25 to-white/15 hover:from-white/35 hover:to-white/25 backdrop-blur-md text-white font-bold text-lg py-4 rounded-2xl transition-all border border-white/30 shadow-lg transform hover:scale-[1.02] active:scale-[0.98] drop-shadow-lg"
+                className={`w-full bg-gradient-to-r ${data.accentBg} hover:${data.accentBg.replace('/80', '/90')} backdrop-blur-md ${data.textColor} font-bold text-lg py-4 rounded-2xl transition-all border border-white/50 shadow-lg transform hover:scale-[1.02] active:scale-[0.98] drop-shadow-lg`}
               >
                 Get Another Quote ✨
               </button>
@@ -95,12 +95,12 @@ const HomePage = ({ navigate }) => {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 pt-16">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 pt-16">
       <div className="absolute inset-0 overflow-hidden">
         {stars.map((star, i) => (
           <div
             key={i}
-            className="absolute bg-white animate-pulse"
+            className="absolute bg-slate-400 animate-pulse"
             style={{
               width: star.width + 'px',
               height: star.height + 'px',
@@ -108,7 +108,7 @@ const HomePage = ({ navigate }) => {
               left: star.left + '%',
               animationDelay: star.animationDelay + 's',
               animationDuration: star.animationDuration + 's',
-              opacity: star.opacity,
+              opacity: star.opacity * 0.6,
               clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)'
             }}
           />
@@ -118,16 +118,16 @@ const HomePage = ({ navigate }) => {
       <div className={`relative z-10 min-h-screen flex flex-col items-center justify-center p-4 transition-opacity duration-500 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
         <div className="text-center mb-12 max-w-3xl">
           <div className="mb-6 inline-block">
-            <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full">
-              <div className="bg-slate-900 rounded-full p-4">
-                <Heart size={48} className="text-pink-400" />
+            <div className="bg-gradient-to-r from-blue-400 to-indigo-500 p-1 rounded-full">
+              <div className="bg-white rounded-full p-4">
+                <Heart size={48} className="text-blue-500" />
               </div>
             </div>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="text-5xl md:text-6xl font-bold text-slate-700 mb-4 drop-shadow-lg">
             How are you feeling today?
           </h1>
-          <p className="text-xl text-white drop-shadow-md font-medium">
+          <p className="text-xl text-slate-600 drop-shadow-md font-medium">
             Select an emotion to get support and guidance
           </p>
         </div>
@@ -139,13 +139,13 @@ const HomePage = ({ navigate }) => {
               <button
                 key={key}
                 onClick={() => handleEmotionSelect(key)}
-                className="group relative overflow-hidden bg-white/10 hover:bg-white/15 backdrop-blur-xl p-6 md:p-8 rounded-3xl transition-all border border-white/20 hover:border-white/40 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
+                className="group relative overflow-hidden bg-white/70 hover:bg-white/80 backdrop-blur-xl p-6 md:p-8 rounded-3xl transition-all border border-white/60 hover:border-white/80 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-95"
               >
                 <div className="relative z-10 flex flex-col items-center gap-3">
-                  <div className="p-4 rounded-2xl bg-white/15 group-hover:bg-white/25 transition-all shadow-lg">
-                    <Icon size={36} className="text-white group-hover:scale-110 transition-transform drop-shadow-lg" />
+                  <div className={`p-4 rounded-2xl ${emotion.accentBg} group-hover:${emotion.accentBg.replace('/80', '/90')} transition-all shadow-lg`}>
+                    <Icon size={36} className={`${emotion.textColor} group-hover:scale-110 transition-transform drop-shadow-lg`} />
                   </div>
-                  <span className="text-lg md:text-xl font-bold text-white transition-colors drop-shadow-lg">
+                  <span className={`text-lg md:text-xl font-bold ${emotion.textColor} transition-colors drop-shadow-lg`}>
                     {emotion.name}
                   </span>
                 </div>
@@ -156,17 +156,17 @@ const HomePage = ({ navigate }) => {
 
         {!isAuthenticated && (
           <div className="mt-8 text-center">
-            <p className="text-white/70 mb-4">Want to track your progress?</p>
+            <p className="text-slate-500 mb-4">Want to track your progress?</p>
             <button
               onClick={() => navigate('/register')}
-              className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg transform hover:scale-105"
+              className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg transform hover:scale-105"
             >
               Sign Up Now
             </button>
           </div>
         )}
 
-        <div className="mt-12 text-center text-white max-w-md bg-white/5 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+        <div className="mt-12 text-center text-slate-600 max-w-md bg-white/50 backdrop-blur-md rounded-2xl p-4 border border-white/40">
           <p className="text-sm drop-shadow-md">
             Your mental health matters. This is a safe space for emotional support and guidance.
           </p>

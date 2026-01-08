@@ -13,12 +13,12 @@ const Navbar = ({ navigate }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-white/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center cursor-pointer" onClick={() => navigate('/')}>
-            <Heart className="text-pink-400 mr-2" size={28} />
-            <span className="text-white font-bold text-xl">MindfulSpace</span>
+            <Heart className="text-blue-500 mr-2" size={28} />
+            <span className="text-slate-700 font-bold text-xl">MindfulSpace</span>
           </div>
 
           {/* Desktop Menu */}
@@ -27,21 +27,21 @@ const Navbar = ({ navigate }) => {
               <>
                 <button
                   onClick={() => navigate('/dashboard')}
-                  className="text-white hover:text-pink-400 px-3 py-2 rounded-lg transition-colors"
+                  className="text-slate-600 hover:text-blue-600 px-3 py-2 rounded-lg transition-colors font-medium"
                 >
                   Dashboard
                 </button>
                 <button
                   onClick={() => navigate('/')}
-                  className="text-white hover:text-pink-400 px-3 py-2 rounded-lg transition-colors"
+                  className="text-slate-600 hover:text-blue-600 px-3 py-2 rounded-lg transition-colors font-medium"
                 >
                   Emotions
                 </button>
-                <div className="flex items-center space-x-3 pl-3 border-l border-white/20">
-                  <span className="text-white text-sm">Hi, {user.name}</span>
+                <div className="flex items-center space-x-3 pl-3 border-l border-slate-200">
+                  <span className="text-slate-600 text-sm font-medium">Hi, {user.name}</span>
                   <button
                     onClick={handleLogout}
-                    className="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-lg transition-all flex items-center gap-2"
+                    className="bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-lg transition-all flex items-center gap-2 border border-red-200"
                   >
                     <LogOut size={16} />
                     Logout
@@ -52,13 +52,13 @@ const Navbar = ({ navigate }) => {
               <>
                 <button
                   onClick={() => navigate('/login')}
-                  className="text-white hover:text-pink-400 px-4 py-2 rounded-lg transition-colors"
+                  className="text-slate-600 hover:text-blue-600 px-3 py-2 rounded-lg transition-colors font-medium"
                 >
                   Login
                 </button>
                 <button
                   onClick={() => navigate('/register')}
-                  className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-4 py-2 rounded-lg transition-all shadow-lg"
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-all font-medium shadow-lg"
                 >
                   Sign Up
                 </button>
@@ -69,7 +69,7 @@ const Navbar = ({ navigate }) => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white p-2 rounded-lg hover:bg-white/10"
+            className="md:hidden text-slate-600 p-2 rounded-lg hover:bg-slate-100"
           >
             <Menu size={24} />
           </button>
@@ -78,27 +78,27 @@ const Navbar = ({ navigate }) => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-slate-900/95 backdrop-blur-xl border-t border-white/10">
+        <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-200">
           <div className="px-4 py-3 space-y-2">
             {isAuthenticated ? (
               <>
                 <button
                   onClick={() => { navigate('/dashboard'); setIsOpen(false); }}
-                  className="block w-full text-left text-white hover:bg-white/10 px-3 py-2 rounded-lg"
+                  className="block w-full text-left text-slate-600 hover:bg-slate-100 px-3 py-2 rounded-lg"
                 >
                   Dashboard
                 </button>
                 <button
                   onClick={() => { navigate('/'); setIsOpen(false); }}
-                  className="block w-full text-left text-white hover:bg-white/10 px-3 py-2 rounded-lg"
+                  className="block w-full text-left text-slate-600 hover:bg-slate-100 px-3 py-2 rounded-lg"
                 >
                   Emotions
                 </button>
-                <div className="pt-2 border-t border-white/10">
-                  <p className="text-white text-sm px-3 py-2">Hi, {user.name}</p>
+                <div className="pt-2 border-t border-slate-200">
+                  <p className="text-slate-600 text-sm px-3 py-2">Hi, {user.name}</p>
                   <button
                     onClick={handleLogout}
-                    className="w-full bg-red-500/20 text-red-300 px-3 py-2 rounded-lg flex items-center gap-2"
+                    className="w-full bg-red-50 text-red-600 px-3 py-2 rounded-lg flex items-center gap-2 border border-red-200"
                   >
                     <LogOut size={16} />
                     Logout
@@ -109,13 +109,13 @@ const Navbar = ({ navigate }) => {
               <>
                 <button
                   onClick={() => { navigate('/login'); setIsOpen(false); }}
-                  className="block w-full text-left text-white hover:bg-white/10 px-3 py-2 rounded-lg"
+                  className="block w-full text-left text-slate-600 hover:bg-slate-100 px-3 py-2 rounded-lg"
                 >
                   Login
                 </button>
                 <button
                   onClick={() => { navigate('/register'); setIsOpen(false); }}
-                  className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white px-3 py-2 rounded-lg"
+                  className="w-full bg-blue-500 text-white px-3 py-2 rounded-lg"
                 >
                   Sign Up
                 </button>

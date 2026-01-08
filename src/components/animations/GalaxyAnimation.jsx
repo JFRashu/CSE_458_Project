@@ -6,15 +6,25 @@ const GalaxyAnimation = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
 
+    // Handle device pixel ratio for crisp rendering
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+
+    const isMobile = window.innerWidth < 768;
     const stars = [];
-    for (let i = 0; i < 500; i++) {
+    const numStars = isMobile ? 120 : 250;
+
+    // Initialize stars
+    for (let i = 0; i < numStars; i++) {
       stars.push({
         angle: Math.random() * Math.PI * 2,
-        distance: Math.random() * 400,
-        size: Math.random() * 2 + 0.5,
+        distance: Math.random() * (isMobile ? 200 : 400),
+        size: Math.random() * (isMobile ? 1.5 : 2) + 0.5,
         speed: Math.random() * 0.001 + 0.0005,
         twinkle: Math.random() * Math.PI * 2,
         twinkleSpeed: Math.random() * 0.05 + 0.02
@@ -23,10 +33,10 @@ const GalaxyAnimation = () => {
 
     const animate = () => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, rect.width, rect.height);
 
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
 
       stars.forEach(star => {
         star.angle += star.speed;
@@ -62,15 +72,32 @@ const GalaxyAnimation = () => {
     animate();
 
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const newRect = canvas.getBoundingClientRect();
+      canvas.width = newRect.width * devicePixelRatio;
+      canvas.height = newRect.height * devicePixelRatio;
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+
+      // Reinitialize stars for new dimensions
+      stars.length = 0;
+      const newIsMobile = window.innerWidth < 768;
+      const newNumStars = newIsMobile ? 120 : 250;
+      for (let i = 0; i < newNumStars; i++) {
+        stars.push({
+          angle: Math.random() * Math.PI * 2,
+          distance: Math.random() * (newIsMobile ? 200 : 400),
+          size: Math.random() * (newIsMobile ? 1.5 : 2) + 0.5,
+          speed: Math.random() * 0.001 + 0.0005,
+          twinkle: Math.random() * Math.PI * 2,
+          twinkleSpeed: Math.random() * 0.05 + 0.02
+        });
+      }
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ imageRendering: 'auto' }} />;
 };
 
 export default GalaxyAnimation;
