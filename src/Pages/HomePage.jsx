@@ -3,6 +3,7 @@ import { Heart, X, Sparkles, Star, TrendingUp } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { emotionsData } from '../data/emotionsData';
 import AnimationBackground from '../components/AnimationBackground';
+import Footer from '../components/Footer';
 import { useNavigate } from '../utils/navigation';
 
 const HomePage = ({ navigate: propNavigate }) => {
@@ -904,105 +905,8 @@ const HomePage = ({ navigate: propNavigate }) => {
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="relative z-10 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-          <div className="max-w-6xl mx-auto px-4 py-12">
-            
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-10">
-              
-              <div className="md:col-span-4">
-                <div className="flex items-center mb-4">
-                  <div className="bg-gradient-to-br from-amber-500 to-orange-600 p-2.5 rounded-xl mr-3">
-                    <Heart className="text-white" size={24} strokeWidth={2} />
-                  </div>
-                  <span className="text-2xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>
-                    MindfulSpace
-                  </span>
-                </div>
-                <p className="text-gray-400 text-sm leading-relaxed mb-5 max-w-xs" style={{ fontFamily: "'Lora', serif" }}>
-                  Your sanctuary for emotional wellbeing. Supporting your journey to mental clarity and peace.
-                </p>
-                
-                <div className="flex gap-3">
-                  {['f', '𝕏', 'in'].map((icon, i) => (
-                    <a
-                      key={i}
-                      href="#"
-                      className="w-9 h-9 bg-slate-700 hover:bg-orange-600 rounded-lg flex items-center justify-center transition-all hover:scale-110"
-                    >
-                      <span className="text-sm font-semibold">{icon}</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
-                <div>
-                  <h4 className="text-sm font-semibold mb-4 text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                    Product
-                  </h4>
-                  <ul className="space-y-2">
-                    {['Features', 'How It Works', 'Pricing'].map((item) => (
-                      <li key={item}>
-                        <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div>
-                  <h4 className="text-sm font-semibold mb-4 text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                    Company
-                  </h4>
-                  <ul className="space-y-2">
-                    {['About', 'Blog', 'Careers'].map((item) => (
-                      <li key={item}>
-                        <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div>
-                  <h4 className="text-sm font-semibold mb-4 text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                    Support
-                  </h4>
-                  <ul className="space-y-2">
-                    {['Help', 'Privacy', 'Terms'].map((item) => (
-                      <li key={item}>
-                        <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="mb-8 bg-red-900/30 backdrop-blur-sm border border-red-800/50 rounded-2xl p-4">
-              <p className="text-sm text-gray-300 text-center">
-                <strong className="text-white">Crisis Support:</strong> Call <a href="tel:988" className="text-red-400 hover:text-red-300 font-semibold">988</a> or text <a href="sms:741741" className="text-red-400 hover:text-red-300 font-semibold">741741</a>
-              </p>
-            </div>
-
-            <div className="pt-6 border-t border-slate-700">
-              <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                <p className="text-gray-400 text-xs">
-                  © 2024 MindfulSpace. Crafted with care.
-                </p>
-                <div className="flex gap-6 text-xs">
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">Accessibility</a>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">Cookies</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
+        {/* Footer Component */}
+        <Footer navigate={navigate} />
       </div>
     </>
   );
