@@ -70,8 +70,8 @@ const HomePage = ({ navigate: propNavigate }) => {
     [...Array(20)].map(() => ({
       left: Math.random() * 100,
       top: Math.random() * 100,
-      duration: Math.random() * 3 + 2,
-      delay: Math.random() * 3
+      duration: 2 + Math.random() * 2,
+      delay: Math.random() * 5
     }))
   );
 
@@ -107,6 +107,7 @@ const HomePage = ({ navigate: propNavigate }) => {
     }, 350);
   };
 
+  // Emotion Detail View
   if (selectedEmotion) {
     const data = emotionsData[selectedEmotion];
     const quote = data.quotes[currentQuoteIndex];
@@ -378,4 +379,3 @@ const HomePage = ({ navigate: propNavigate }) => {
 };
 
 export default HomePage;
-         
