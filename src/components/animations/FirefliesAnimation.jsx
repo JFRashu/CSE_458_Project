@@ -7,7 +7,6 @@ const FirefliesAnimation = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
-    // Handle device pixel ratio for crisp rendering
     const devicePixelRatio = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();
 
@@ -17,60 +16,136 @@ const FirefliesAnimation = () => {
 
     const isMobile = window.innerWidth < 768;
     const fireflies = [];
-    const numFireflies = isMobile ? 40 : 80;
+    const numFireflies = isMobile ? 35 : 60;
 
-    // Initialize fireflies
+    // Initialize refined fireflies
     for (let i = 0; i < numFireflies; i++) {
       fireflies.push({
         x: Math.random() * rect.width,
         y: Math.random() * rect.height,
-        vx: (Math.random() - 0.5) * (isMobile ? 1 : 2),
-        vy: (Math.random() - 0.5) * (isMobile ? 1 : 2),
-        brightness: Math.random(),
-        brightnessSpeed: Math.random() * 0.05 + 0.02,
-        size: Math.random() * (isMobile ? 3 : 4) + (isMobile ? 1.5 : 2),
-        hue: Math.random() * 60 + 60
+        vx: (Math.random() - 0.5) * (isMobile ? 0.8 : 1.5),
+        vy: (Math.random() - 0.5) * (isMobile ? 0.8 : 1.5),
+        brightness: Math.random() * Math.PI * 2,
+        brightnessSpeed: Math.random() * 0.04 + 0.02,
+        size: Math.random() * (isMobile ? 2.5 : 3.5) + (isMobile ? 1.5 : 2),
+        hue: Math.random() * 40 + 60, // Yellow-green range
+        maxGlow: Math.random() * 0.6 + 0.4,
+        pulsePattern: Math.random() < 0.3 ? 'fast' : 'slow',
+        targetX: null,
+        targetY: null,
+        reachedTarget: false
       });
     }
 
     const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      // Elegant fade
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
-      fireflies.forEach(firefly => {
+      fireflies.forEach((firefly, index) => {
+        // Update brightness
         firefly.brightness += firefly.brightnessSpeed;
         if (firefly.brightness > Math.PI * 2) firefly.brightness = 0;
 
-        const glow = (Math.sin(firefly.brightness) + 1) / 2;
+        // Calculate glow intensity with refined patterns
+        let glow;
+        if (firefly.pulsePattern === 'fast') {
+          glow = (Math.sin(firefly.brightness * 2) + 1) / 2;
+        } else {
+          glow = (Math.sin(firefly.brightness) + 1) / 2;
+        }
+        glow *= firefly.maxGlow;
 
-        ctx.shadowBlur = (isMobile ? 15 : 20) * glow;
-        ctx.shadowColor = `hsl(${firefly.hue}, 100%, 60%)`;
+        // Create elegant multi-layer glow
+        // Outer glow
+        const outerGradient = ctx.createRadialGradient(
+          firefly.x, firefly.y, 0,
+          firefly.x, firefly.y, firefly.size * (isMobile ? 5 : 6)
+        );
+        outerGradient.addColorStop(0, `hsla(${firefly.hue}, 100%, 60%, ${glow * 0.3})`);
+        outerGradient.addColorStop(0.5, `hsla(${firefly.hue}, 100%, 50%, ${glow * 0.15})`);
+        outerGradient.addColorStop(1, 'rgba(52, 211, 153, 0)');
 
-        const gradient = ctx.createRadialGradient(
+        ctx.fillStyle = outerGradient;
+        ctx.beginPath();
+        ctx.arc(firefly.x, firefly.y, firefly.size * (isMobile ? 5 : 6), 0, Math.PI * 2);
+        ctx.fill();
+
+        // Middle glow with shadow
+        ctx.shadowBlur = (isMobile ? 12 : 18) * glow;
+        ctx.shadowColor = `hsla(${firefly.hue}, 100%, 60%, ${glow * 0.8})`;
+
+        const middleGradient = ctx.createRadialGradient(
           firefly.x, firefly.y, 0,
           firefly.x, firefly.y, firefly.size * (isMobile ? 3 : 4)
         );
-        gradient.addColorStop(0, `hsla(${firefly.hue}, 100%, 70%, ${glow})`);
-        gradient.addColorStop(0.5, `hsla(${firefly.hue}, 100%, 50%, ${glow * 0.5})`);
-        gradient.addColorStop(1, 'rgba(52, 211, 153, 0)');
+        middleGradient.addColorStop(0, `hsla(${firefly.hue}, 100%, 70%, ${glow * 0.8})`);
+        middleGradient.addColorStop(0.6, `hsla(${firefly.hue}, 100%, 55%, ${glow * 0.4})`);
+        middleGradient.addColorStop(1, 'rgba(52, 211, 153, 0)');
 
-        ctx.fillStyle = gradient;
+        ctx.fillStyle = middleGradient;
         ctx.beginPath();
         ctx.arc(firefly.x, firefly.y, firefly.size * (isMobile ? 3 : 4), 0, Math.PI * 2);
         ctx.fill();
 
         ctx.shadowBlur = 0;
 
+        // Bright core
+        ctx.fillStyle = `hsla(${firefly.hue}, 100%, 90%, ${glow})`;
+        ctx.beginPath();
+        ctx.arc(firefly.x, firefly.y, firefly.size * 0.8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Sophisticated movement with occasional target seeking
+        if (!firefly.targetX || firefly.reachedTarget || Math.random() < 0.005) {
+          firefly.targetX = Math.random() * rect.width;
+          firefly.targetY = Math.random() * rect.height;
+          firefly.reachedTarget = false;
+        }
+
+        // Move towards target with some randomness
+        const dx = firefly.targetX - firefly.x;
+        const dy = firefly.targetY - firefly.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 50) {
+          firefly.reachedTarget = true;
+        }
+
+        const targetInfluence = 0.02;
+        firefly.vx += (dx / distance) * targetInfluence * (1 - firefly.reachedTarget ? 1 : 0);
+        firefly.vy += (dy / distance) * targetInfluence * (1 - firefly.reachedTarget ? 1 : 0);
+
+        // Add organic randomness
+        firefly.vx += (Math.random() - 0.5) * 0.15;
+        firefly.vy += (Math.random() - 0.5) * 0.15;
+
+        // Apply damping for smooth movement
+        firefly.vx *= 0.98;
+        firefly.vy *= 0.98;
+
+        // Limit speed
+        const speed = Math.sqrt(firefly.vx * firefly.vx + firefly.vy * firefly.vy);
+        const maxSpeed = isMobile ? 2 : 3;
+        if (speed > maxSpeed) {
+          firefly.vx = (firefly.vx / speed) * maxSpeed;
+          firefly.vy = (firefly.vy / speed) * maxSpeed;
+        }
+
+        // Update position
         firefly.x += firefly.vx;
         firefly.y += firefly.vy;
 
-        if (firefly.x < 0 || firefly.x > rect.width) firefly.vx *= -1;
-        if (firefly.y < 0 || firefly.y > rect.height) firefly.vy *= -1;
-
-        firefly.vx += (Math.random() - 0.5) * 0.1;
-        firefly.vy += (Math.random() - 0.5) * 0.1;
-        firefly.vx *= 0.99;
-        firefly.vy *= 0.99;
+        // Bounce off edges with padding
+        const padding = 50;
+        if (firefly.x < padding || firefly.x > rect.width - padding) {
+          firefly.vx *= -0.8;
+          firefly.x = Math.max(padding, Math.min(rect.width - padding, firefly.x));
+        }
+        if (firefly.y < padding || firefly.y > rect.height - padding) {
+          firefly.vy *= -0.8;
+          firefly.y = Math.max(padding, Math.min(rect.height - padding, firefly.y));
+        }
       });
 
       requestAnimationFrame(animate);
@@ -84,29 +159,20 @@ const FirefliesAnimation = () => {
       canvas.height = newRect.height * devicePixelRatio;
       ctx.scale(devicePixelRatio, devicePixelRatio);
 
-      // Reinitialize fireflies for new dimensions
-      fireflies.length = 0;
-      const newIsMobile = window.innerWidth < 768;
-      const newNumFireflies = newIsMobile ? 40 : 80;
-      for (let i = 0; i < newNumFireflies; i++) {
-        fireflies.push({
-          x: Math.random() * newRect.width,
-          y: Math.random() * newRect.height,
-          vx: (Math.random() - 0.5) * (newIsMobile ? 1 : 2),
-          vy: (Math.random() - 0.5) * (newIsMobile ? 1 : 2),
-          brightness: Math.random(),
-          brightnessSpeed: Math.random() * 0.05 + 0.02,
-          size: Math.random() * (newIsMobile ? 3 : 4) + (newIsMobile ? 1.5 : 2),
-          hue: Math.random() * 60 + 60
-        });
-      }
+      // Redistribute fireflies on resize
+      fireflies.forEach(firefly => {
+        firefly.x = Math.min(firefly.x, newRect.width - 50);
+        firefly.y = Math.min(firefly.y, newRect.height - 50);
+        firefly.targetX = null;
+        firefly.targetY = null;
+      });
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ imageRendering: 'auto' }} />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-85" style={{ imageRendering: 'auto' }} />;
 };
 
 export default FirefliesAnimation;

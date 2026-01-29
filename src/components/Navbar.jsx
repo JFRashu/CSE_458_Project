@@ -35,7 +35,7 @@ const Navbar = ({ navigate: propNavigate }) => {
     : [
         { name: 'Home', path: '/', icon: Home },
         { name: 'Features', path: '/#features', icon: Sparkles },
-        { name: 'About', path: '/about', icon: Trophy },
+      
       ];
 
   return (
