@@ -13,6 +13,18 @@ const RegisterPage = ({ navigate }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Generate floating particles once on mount
+  const [particles] = useState(() =>
+    [...Array(40)].map(() => ({
+      width: Math.random() * 6 + 3,
+      height: Math.random() * 6 + 3,
+      left: Math.random() * 100,
+      animationDuration: Math.random() * 20 + 15,
+      animationDelay: Math.random() * 5,
+      opacity: Math.random() * 0.5 + 0.3,
+    }))
+  );
+
   // Password strength checker
   const getPasswordStrength = () => {
     if (!password) return { strength: 0, label: '', color: '' };
@@ -225,18 +237,18 @@ const RegisterPage = ({ navigate }) => {
           />
           
           {/* Floating Particles */}
-          {[...Array(40)].map((_, i) => (
+          {particles.map((particle, i) => (
             <div
               key={i}
               className="absolute rounded-full bg-gradient-to-br from-orange-400 to-amber-400 animate-float-particle"
               style={{
-                width: Math.random() * 6 + 3 + 'px',
-                height: Math.random() * 6 + 3 + 'px',
-                left: Math.random() * 100 + '%',
+                width: particle.width + 'px',
+                height: particle.height + 'px',
+                left: particle.left + '%',
                 bottom: '-20px',
-                animationDuration: Math.random() * 20 + 15 + 's',
-                animationDelay: Math.random() * 5 + 's',
-                opacity: Math.random() * 0.5 + 0.3,
+                animationDuration: particle.animationDuration + 's',
+                animationDelay: particle.animationDelay + 's',
+                opacity: particle.opacity,
                 boxShadow: '0 0 10px rgba(251, 146, 60, 0.5)'
               }}
             />

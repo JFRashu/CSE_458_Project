@@ -42,7 +42,7 @@ const FirefliesAnimation = () => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
-      fireflies.forEach((firefly, index) => {
+      fireflies.forEach((firefly) => {
         // Update brightness
         firefly.brightness += firefly.brightnessSpeed;
         if (firefly.brightness > Math.PI * 2) firefly.brightness = 0;

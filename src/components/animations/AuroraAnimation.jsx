@@ -75,7 +75,7 @@ const AuroraAnimation = () => {
       ctx.fillRect(0, 0, rect.width, rect.height);
 
       // Draw aurora waves
-      waves.forEach((wave, waveIndex) => {
+      waves.forEach((wave) => {
         ctx.beginPath();
         const stepSize = isMobile ? 6 : 4;
         const baseY = rect.height / 2;
