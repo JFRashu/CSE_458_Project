@@ -415,8 +415,7 @@ const LoginPage = ({ navigate : propNavigate}) => {
         </div>
    
       </div>
-      {/* Footer Component */}
-        <Footer navigate={navigate} />
+   
     </>
   );
 };

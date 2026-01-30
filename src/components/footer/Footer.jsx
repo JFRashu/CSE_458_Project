@@ -41,15 +41,15 @@ const Footer = ({ navigate: propNavigate }) => {
     <>
       <style>{footerStyles}</style>
 
-      <footer className="glass-footer mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <footer className="glass-footer mt-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-8">
 
             {/* Brand Section */}
             <div className="lg:col-span-1 animate-fade-in-up">
               <div
-                className="flex items-center space-x-2 mb-6 cursor-pointer group"
+                className="flex items-center space-x-2 mb-4 cursor-pointer group"
                 onClick={() => navigate('/')}
               >
                 <div className="relative">

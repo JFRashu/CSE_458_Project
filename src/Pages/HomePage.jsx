@@ -285,8 +285,8 @@ const HomePage = ({ navigate: propNavigate }) => {
           </div>
         </div>
 
-        {/* Footer Component */}
-        <Footer navigate={navigate} />
+   
+        {/* <Footer navigate={navigate} /> */}
       </div>
     </>
   );

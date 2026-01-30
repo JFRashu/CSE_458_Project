@@ -187,8 +187,7 @@ const DashboardPage = ({ navigate :propNavigate}) => {
             </div>
           </div>
         </div>
-         {/* Footer Component */}
-        <Footer navigate={navigate} />
+       
       </div>
      
     );
@@ -477,8 +476,7 @@ const DashboardPage = ({ navigate :propNavigate}) => {
           <MotivationalQoute/>
         </div>
      
-      {/* Footer Component */}
-        <Footer navigate={navigate} />
+    
     </>
   );
 };

@@ -520,8 +520,7 @@ const RegisterPage = ({ navigate: propNavigate }) => {
           </div>
         </div>
       </div>
-      {/* Footer Component */}
-      <Footer navigate={navigate} />
+     
     </>
   );
 };

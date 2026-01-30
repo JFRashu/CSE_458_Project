@@ -23,7 +23,8 @@ const App = () => {
           <Route path="/error-test" component={ErrorTest} />
 
           {/* Footer Component */}
-          {/* <Footer /> */}
+         {/* Footer Component */}
+        <Footer />
         </Router>
       </AuthProvider>
     </ErrorBoundary>
