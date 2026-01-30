@@ -10,7 +10,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { emotionsData } from '../data/emotionsData';
 import AnimationBackground from '../components/AnimationBackground';
-import Footer from '../components/Footer';
+import Footer from '../components/footer/Footer';
 import { useNavigate } from '../utils/navigation';
 import { dashboardStyles } from '../components/dashboard/dashboardStyle';
 import DashboardBackground from '../components/dashboard/DashboardBackground';
@@ -187,7 +187,10 @@ const DashboardPage = ({ navigate :propNavigate}) => {
             </div>
           </div>
         </div>
+         {/* Footer Component */}
+        <Footer navigate={navigate} />
       </div>
+     
     );
   }
 

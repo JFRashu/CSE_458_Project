@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Heart, Mail, Lock, Sparkles, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from '../utils/navigation';
-import Footer from '../components/Footer';
+import Footer from '../components/footer/Footer';
 const LoginPage = ({ navigate : propNavigate}) => {
-   const navigate = useNavigate() || propNavigate;
+  const navigate = useNavigate() || propNavigate;
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

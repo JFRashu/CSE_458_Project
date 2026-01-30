@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Heart, Star, TrendingUp, Brain, Shield, Zap, Target, Users } from 'lucide-react';
-import Footer from '../components/Footer';
+import Footer from '../components/footer/Footer';
 import { useNavigate } from '../utils/navigation';
 import { BackgroundElements } from '../components/home';
 import { homePageStyles } from '../components/home/homeStyles';

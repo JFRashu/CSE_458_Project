@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Heart, Menu, X, User, LogOut, Settings, BarChart3, Sparkles, Home, Trophy } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from '../utils/navigation';
-import { navbarStyles } from './navbar/NavbarStyle';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from '../../utils/navigation';
+import { navbarStyles } from './NavbarStyle';
 
 const Navbar = ({ navigate: propNavigate }) => {
   const { isAuthenticated, logout, user } = useAuth();
@@ -35,7 +35,7 @@ const Navbar = ({ navigate: propNavigate }) => {
     : [
         { name: 'Home', path: '/', icon: Home },
         { name: 'Features', path: '/#features', icon: Sparkles },
-      
+
       ];
 
   return (
@@ -47,9 +47,9 @@ const Navbar = ({ navigate: propNavigate }) => {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            
+
             {/* Logo Section */}
-            <div 
+            <div
               className="flex items-center space-x-3 cursor-pointer group"
               onClick={() => {
                 navigate('/');
@@ -61,16 +61,16 @@ const Navbar = ({ navigate: propNavigate }) => {
                 {/* Pulsing Background Rings */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 opacity-20 animate-ping"></div>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-400 to-amber-500 opacity-10 animate-pulse"></div>
-                
+
                 {/* Main Logo */}
                 <div className="relative profile-badge p-2 rounded-xl shadow-lg transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <Heart className="text-white" size={24} strokeWidth={2.5} />
                 </div>
               </div>
-              
+
               {/* Brand Name */}
               <div className="flex flex-col">
-                <span 
+                <span
                   className="text-xl font-bold bg-gradient-to-r from-gray-800 via-orange-600 to-gray-800 bg-clip-text text-transparent"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
@@ -87,7 +87,7 @@ const Navbar = ({ navigate: propNavigate }) => {
               {menuItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeLink === item.name.toLowerCase();
-                
+
                 return (
                   <button
                     key={item.name}
@@ -123,7 +123,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                       </div>
                       <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full animate-float-badge"></div>
                     </div>
-                    
+
                     {/* User Info */}
                     <div className="flex flex-col items-start">
                       <span className="text-sm font-semibold text-gray-800" style={{ fontFamily: "'Outfit', sans-serif" }}>
@@ -131,12 +131,12 @@ const Navbar = ({ navigate: propNavigate }) => {
                       </span>
                       <span className="text-xs text-orange-600 font-medium">View Profile</span>
                     </div>
-                    
+
                     {/* Dropdown Arrow */}
-                    <svg 
-                      className={`w-4 h-4 text-orange-600 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} 
-                      fill="none" 
-                      stroke="currentColor" 
+                    <svg
+                      className={`w-4 h-4 text-orange-600 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -161,7 +161,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                             </div>
                           </div>
                         </div>
-                        
+
                         {/* Dropdown Menu Items */}
                         <div className="p-2">
                           <button
@@ -176,7 +176,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                               Dashboard
                             </span>
                           </button>
-                          
+
                           <button
                             onClick={() => {
                               navigate('/settings');
@@ -189,9 +189,9 @@ const Navbar = ({ navigate: propNavigate }) => {
                               Settings
                             </span>
                           </button>
-                          
+
                           <div className="my-2 border-t border-gray-200"></div>
-                          
+
                           <button
                             onClick={handleLogout}
                             className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-red-50 transition-all group"
@@ -215,7 +215,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                   >
                     Login
                   </button>
-                  
+
                   <button
                     onClick={() => navigate('/register')}
                     className="relative overflow-hidden px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 active:scale-95 animate-glow-pulse group"
@@ -253,7 +253,7 @@ const Navbar = ({ navigate: propNavigate }) => {
               {menuItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeLink === item.name.toLowerCase();
-                
+
                 return (
                   <button
                     key={item.name}
@@ -263,8 +263,8 @@ const Navbar = ({ navigate: propNavigate }) => {
                       setIsMenuOpen(false);
                     }}
                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
-                      isActive 
-                        ? 'bg-gradient-to-r from-orange-100 to-amber-100 border-2 border-orange-300' 
+                      isActive
+                        ? 'bg-gradient-to-r from-orange-100 to-amber-100 border-2 border-orange-300'
                         : 'hover:bg-orange-50 border-2 border-transparent'
                     }`}
                   >
@@ -286,7 +286,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                     {/* Mobile User Info */}
                     <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl p-4 border border-orange-200">
                       <div className="flex items-center space-x-3">
-                        <div className="profile-badge w-12 h-12 rounded-full flex items-center justify-center shadow-md">
+                        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
                           <User size={22} className="text-white" strokeWidth={2.5} />
                         </div>
                         <div>
@@ -297,7 +297,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <button
                       onClick={() => {
                         navigate('/dashboard');
@@ -310,7 +310,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                         Dashboard
                       </span>
                     </button>
-                    
+
                     <button
                       onClick={() => {
                         navigate('/settings');
@@ -323,7 +323,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                         Settings
                       </span>
                     </button>
-                    
+
                     <button
                       onClick={handleLogout}
                       className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-red-50 hover:bg-red-100 transition-all border-2 border-red-200"
@@ -346,7 +346,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                     >
                       Login
                     </button>
-                    
+
                     <button
                       onClick={() => {
                         navigate('/register');
@@ -368,7 +368,7 @@ const Navbar = ({ navigate: propNavigate }) => {
 
       {/* Overlay for profile dropdown */}
       {isProfileOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-black/10 backdrop-blur-sm"
           onClick={() => setIsProfileOpen(false)}
         ></div>

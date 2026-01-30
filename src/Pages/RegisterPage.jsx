@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { User, Mail, Lock, Sparkles, Eye, EyeOff, CheckCircle2, Shield } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import Footer from '../components/Footer';
+import Footer from '../components/footer/Footer';
 import { useNavigate } from '../utils/navigation';
 
 const RegisterPage = ({ navigate: propNavigate }) => {
