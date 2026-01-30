@@ -15,7 +15,7 @@ const RegisterPage = ({ navigate: propNavigate }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [activeLink, setActiveLink] = useState('');
   // Generate floating particles once on mount
   const [particles] = useState(() =>
     [...Array(40)].map(() => ({
@@ -71,6 +71,7 @@ const RegisterPage = ({ navigate: propNavigate }) => {
     setTimeout(() => {
       if (register(email, password, name)) {
         navigate('/dashboard');
+        setActiveLink('dashboard');
       } else {
         setError('Registration failed. Email may already be in use.');
         setIsLoading(false);

@@ -168,6 +168,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                             onClick={() => {
                               navigate('/dashboard');
                               setIsProfileOpen(false);
+                               setActiveLink('dashboard');
                             }}
                             className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-orange-50 transition-all group"
                           >
@@ -177,7 +178,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                             </span>
                           </button>
 
-                          <button
+                          {/* <button
                             onClick={() => {
                               navigate('/settings');
                               setIsProfileOpen(false);
@@ -188,7 +189,7 @@ const Navbar = ({ navigate: propNavigate }) => {
                             <span className="text-sm font-semibold text-gray-700 group-hover:text-orange-600" style={{ fontFamily: "'Outfit', sans-serif" }}>
                               Settings
                             </span>
-                          </button>
+                          </button> */}
 
                           <div className="my-2 border-t border-gray-200"></div>
 

@@ -11,7 +11,7 @@ const LoginPage = ({ navigate : propNavigate}) => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [activeLink, setActiveLink] = useState('');
   // Generate floating particles once on mount
   const [particles] = useState(() =>
     [...Array(40)].map(() => ({
@@ -38,6 +38,7 @@ const LoginPage = ({ navigate : propNavigate}) => {
     setTimeout(() => {
       if (login(email, password)) {
         navigate('/dashboard');
+        setActiveLink('home');
       } else {
         setError('Invalid credentials. Please try again.');
         setIsLoading(false);
