@@ -71,6 +71,7 @@ const RegisterPage = ({ navigate: propNavigate }) => {
     setTimeout(() => {
       if (register(email, password, name)) {
         navigate('/dashboard');
+      
         setActiveLink('dashboard');
       } else {
         setError('Registration failed. Email may already be in use.');

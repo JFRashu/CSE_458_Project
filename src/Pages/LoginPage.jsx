@@ -38,7 +38,7 @@ const LoginPage = ({ navigate : propNavigate}) => {
     setTimeout(() => {
       if (login(email, password)) {
         navigate('/dashboard');
-        setActiveLink('home');
+        setActiveLink('dashboard');
       } else {
         setError('Invalid credentials. Please try again.');
         setIsLoading(false);
