@@ -18,7 +18,6 @@ const FirefliesAnimation = () => {
     const fireflies = [];
     const numFireflies = isMobile ? 35 : 60;
 
-    // Initialize refined fireflies
     for (let i = 0; i < numFireflies; i++) {
       fireflies.push({
         x: Math.random() * rect.width,
@@ -28,7 +27,7 @@ const FirefliesAnimation = () => {
         brightness: Math.random() * Math.PI * 2,
         brightnessSpeed: Math.random() * 0.04 + 0.02,
         size: Math.random() * (isMobile ? 2.5 : 3.5) + (isMobile ? 1.5 : 2),
-        hue: Math.random() * 40 + 60, // Yellow-green range
+        hue: Math.random() * 40 + 60,
         maxGlow: Math.random() * 0.6 + 0.4,
         pulsePattern: Math.random() < 0.3 ? 'fast' : 'slow',
         targetX: null,
@@ -38,16 +37,13 @@ const FirefliesAnimation = () => {
     }
 
     const animate = () => {
-      // Elegant fade
       ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
       fireflies.forEach((firefly) => {
-        // Update brightness
         firefly.brightness += firefly.brightnessSpeed;
         if (firefly.brightness > Math.PI * 2) firefly.brightness = 0;
 
-        // Calculate glow intensity with refined patterns
         let glow;
         if (firefly.pulsePattern === 'fast') {
           glow = (Math.sin(firefly.brightness * 2) + 1) / 2;
@@ -56,8 +52,6 @@ const FirefliesAnimation = () => {
         }
         glow *= firefly.maxGlow;
 
-        // Create elegant multi-layer glow
-        // Outer glow
         const outerGradient = ctx.createRadialGradient(
           firefly.x, firefly.y, 0,
           firefly.x, firefly.y, firefly.size * (isMobile ? 5 : 6)
@@ -71,7 +65,6 @@ const FirefliesAnimation = () => {
         ctx.arc(firefly.x, firefly.y, firefly.size * (isMobile ? 5 : 6), 0, Math.PI * 2);
         ctx.fill();
 
-        // Middle glow with shadow
         ctx.shadowBlur = (isMobile ? 12 : 18) * glow;
         ctx.shadowColor = `hsla(${firefly.hue}, 100%, 60%, ${glow * 0.8})`;
 
@@ -90,20 +83,17 @@ const FirefliesAnimation = () => {
 
         ctx.shadowBlur = 0;
 
-        // Bright core
         ctx.fillStyle = `hsla(${firefly.hue}, 100%, 90%, ${glow})`;
         ctx.beginPath();
         ctx.arc(firefly.x, firefly.y, firefly.size * 0.8, 0, Math.PI * 2);
         ctx.fill();
 
-        // Sophisticated movement with occasional target seeking
         if (!firefly.targetX || firefly.reachedTarget || Math.random() < 0.005) {
           firefly.targetX = Math.random() * rect.width;
           firefly.targetY = Math.random() * rect.height;
           firefly.reachedTarget = false;
         }
 
-        // Move towards target with some randomness
         const dx = firefly.targetX - firefly.x;
         const dy = firefly.targetY - firefly.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -116,15 +106,12 @@ const FirefliesAnimation = () => {
         firefly.vx += (dx / distance) * targetInfluence * (1 - firefly.reachedTarget ? 1 : 0);
         firefly.vy += (dy / distance) * targetInfluence * (1 - firefly.reachedTarget ? 1 : 0);
 
-        // Add organic randomness
         firefly.vx += (Math.random() - 0.5) * 0.15;
         firefly.vy += (Math.random() - 0.5) * 0.15;
 
-        // Apply damping for smooth movement
         firefly.vx *= 0.98;
         firefly.vy *= 0.98;
 
-        // Limit speed
         const speed = Math.sqrt(firefly.vx * firefly.vx + firefly.vy * firefly.vy);
         const maxSpeed = isMobile ? 2 : 3;
         if (speed > maxSpeed) {
@@ -132,11 +119,9 @@ const FirefliesAnimation = () => {
           firefly.vy = (firefly.vy / speed) * maxSpeed;
         }
 
-        // Update position
         firefly.x += firefly.vx;
         firefly.y += firefly.vy;
 
-        // Bounce off edges with padding
         const padding = 50;
         if (firefly.x < padding || firefly.x > rect.width - padding) {
           firefly.vx *= -0.8;
@@ -159,7 +144,6 @@ const FirefliesAnimation = () => {
       canvas.height = newRect.height * devicePixelRatio;
       ctx.scale(devicePixelRatio, devicePixelRatio);
 
-      // Redistribute fireflies on resize
       fireflies.forEach(firefly => {
         firefly.x = Math.min(firefly.x, newRect.width - 50);
         firefly.y = Math.min(firefly.y, newRect.height - 50);

@@ -17,7 +17,6 @@ const AuroraAnimation = () => {
     let time = 0;
     const isMobile = window.innerWidth < 768;
     
-    // Refined wave layers with elegant colors
     const waves = [
       { 
         color: { r: 134, g: 239, b: 172 }, 
@@ -53,7 +52,6 @@ const AuroraAnimation = () => {
       }
     ];
 
-    // Floating particles for added depth
     const particles = [];
     const particleCount = isMobile ? 25 : 40;
     for (let i = 0; i < particleCount; i++) {
@@ -70,11 +68,9 @@ const AuroraAnimation = () => {
     }
 
     const animate = () => {
-      // Elegant fade
       ctx.fillStyle = 'rgba(0, 0, 0, 0.02)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
-      // Draw aurora waves
       waves.forEach((wave) => {
         ctx.beginPath();
         const stepSize = isMobile ? 6 : 4;
@@ -97,7 +93,6 @@ const AuroraAnimation = () => {
         ctx.lineTo(0, rect.height);
         ctx.closePath();
 
-        // Create gradient fill
         const gradient = ctx.createLinearGradient(0, baseY - wave.amplitude, 0, rect.height);
         gradient.addColorStop(0, `rgba(${wave.color.r}, ${wave.color.g}, ${wave.color.b}, ${wave.opacity * 0.8})`);
         gradient.addColorStop(0.5, `rgba(${wave.color.r}, ${wave.color.g}, ${wave.color.b}, ${wave.opacity})`);
@@ -106,7 +101,6 @@ const AuroraAnimation = () => {
         ctx.fillStyle = gradient;
         ctx.fill();
 
-        // Add subtle glow on top edge
         ctx.strokeStyle = `rgba(${wave.color.r}, ${wave.color.g}, ${wave.color.b}, ${wave.opacity * 1.5})`;
         ctx.lineWidth = 1;
         ctx.stroke();
@@ -114,12 +108,10 @@ const AuroraAnimation = () => {
         time += wave.speed;
       });
 
-      // Draw floating particles
       particles.forEach(particle => {
         particle.pulsePhase += particle.pulseSpeed;
         const dynamicOpacity = particle.opacity * (0.7 + Math.sin(particle.pulsePhase) * 0.3);
 
-        // Subtle glow
         const gradient = ctx.createRadialGradient(
           particle.x, particle.y, 0,
           particle.x, particle.y, particle.size * 2
@@ -132,11 +124,9 @@ const AuroraAnimation = () => {
         ctx.arc(particle.x, particle.y, particle.size * 2, 0, Math.PI * 2);
         ctx.fill();
 
-        // Update position
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        // Wrap around edges
         if (particle.x < 0) particle.x = rect.width;
         if (particle.x > rect.width) particle.x = 0;
         if (particle.y < 0) particle.y = rect.height;

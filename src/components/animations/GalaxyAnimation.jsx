@@ -18,7 +18,6 @@ const GalaxyAnimation = () => {
     const stars = [];
     const numStars = isMobile ? 100 : 180;
 
-    // Initialize refined star system
     for (let i = 0; i < numStars; i++) {
       const distance = Math.random() * (isMobile ? 180 : 350) + (isMobile ? 30 : 50);
       stars.push({
@@ -36,7 +35,6 @@ const GalaxyAnimation = () => {
       });
     }
 
-    // Add some larger, brighter stars
     const brightStars = isMobile ? 8 : 15;
     for (let i = 0; i < brightStars; i++) {
       stars.push({
@@ -54,7 +52,6 @@ const GalaxyAnimation = () => {
     }
 
     const animate = () => {
-      // Elegant fade for trails
       ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
@@ -70,7 +67,6 @@ const GalaxyAnimation = () => {
         const brightness = (Math.sin(star.twinkle) + 1) / 2;
         const dynamicOpacity = star.opacity * (0.6 + brightness * 0.4);
 
-        // Draw elegant trail
         const prevX = centerX + Math.cos(star.angle - star.trailLength) * star.distance;
         const prevY = centerY + Math.sin(star.angle - star.trailLength) * star.distance;
         
@@ -86,7 +82,6 @@ const GalaxyAnimation = () => {
         ctx.lineTo(x, y);
         ctx.stroke();
 
-        // Draw star with gradient glow
         const gradient = ctx.createRadialGradient(
           x, y, 0,
           x, y, star.size * (star.isBright ? 4 : 3)
@@ -100,7 +95,6 @@ const GalaxyAnimation = () => {
         ctx.arc(x, y, star.size * (star.isBright ? 4 : 3), 0, Math.PI * 2);
         ctx.fill();
 
-        // Add bright core
         if (star.isBright) {
           ctx.fillStyle = `rgba(255, 255, 255, ${dynamicOpacity * 0.8})`;
           ctx.beginPath();
@@ -108,7 +102,6 @@ const GalaxyAnimation = () => {
           ctx.fill();
         }
 
-        // Add subtle glow
         ctx.shadowBlur = star.isBright ? (isMobile ? 10 : 15) : (isMobile ? 6 : 8);
         ctx.shadowColor = `rgba(${star.color.r}, ${star.color.g}, ${star.color.b}, ${dynamicOpacity * 0.5})`;
         ctx.fillStyle = `rgba(${star.color.r}, ${star.color.g}, ${star.color.b}, ${dynamicOpacity * 0.9})`;

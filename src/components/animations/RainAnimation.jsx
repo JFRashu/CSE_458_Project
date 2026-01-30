@@ -17,7 +17,6 @@ const RainAnimation = () => {
     const isMobile = window.innerWidth < 768;
     const particleCount = isMobile ? 60 : 100;
 
-    // Refined raindrop particles
     const raindrops = [];
     for (let i = 0; i < particleCount; i++) {
       raindrops.push({
@@ -61,7 +60,6 @@ const RainAnimation = () => {
           thickness: Math.random() * 1.5 + 1
         });
         
-        // Add some branches
         if (Math.random() < 0.3 && i > 2) {
           const branchX = nextX + (Math.random() - 0.5) * (isMobile ? 20 : 35);
           const branchY = nextY + Math.random() * (isMobile ? 15 : 25);
@@ -82,18 +80,14 @@ const RainAnimation = () => {
     let lightningTimer = Math.random() * 400 + 300;
 
     const animate = () => {
-      // Subtle fade effect
       ctx.fillStyle = 'rgba(15, 23, 42, 0.05)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
-      // Draw lightning with refined effects
       if (lightning.active) {
-        // Outer glow
         ctx.shadowBlur = isMobile ? 20 : 30;
         ctx.shadowColor = `rgba(96, 165, 250, ${lightning.glow * 0.4})`;
         
         lightning.branches.forEach(branch => {
-          // Main bolt
           ctx.strokeStyle = `rgba(147, 197, 253, ${lightning.opacity})`;
           ctx.lineWidth = branch.thickness;
           ctx.beginPath();
@@ -101,7 +95,6 @@ const RainAnimation = () => {
           ctx.lineTo(branch.x2, branch.y2);
           ctx.stroke();
           
-          // Inner bright core
           ctx.strokeStyle = `rgba(255, 255, 255, ${lightning.opacity * 0.8})`;
           ctx.lineWidth = branch.thickness * 0.4;
           ctx.beginPath();
@@ -116,9 +109,7 @@ const RainAnimation = () => {
         if (lightning.opacity <= 0) lightning.active = false;
       }
 
-      // Draw refined raindrops
       raindrops.forEach(drop => {
-        // Main raindrop line
         ctx.strokeStyle = `rgba(147, 197, 253, ${drop.opacity})`;
         ctx.lineWidth = drop.thickness;
         ctx.lineCap = 'round';
@@ -127,7 +118,6 @@ const RainAnimation = () => {
         ctx.lineTo(drop.x - (isMobile ? 1.5 : 2), drop.y + drop.length);
         ctx.stroke();
         
-        // Subtle glow
         ctx.strokeStyle = `rgba(147, 197, 253, ${drop.opacity * 0.3})`;
         ctx.lineWidth = drop.thickness * 2;
         ctx.beginPath();
@@ -140,7 +130,6 @@ const RainAnimation = () => {
           drop.y = -drop.length;
           drop.x = Math.random() * rect.width;
           
-          // Create ripple effect on impact
           if (Math.random() < 0.08) {
             ripples.push({ 
               x: drop.x, 
@@ -153,16 +142,13 @@ const RainAnimation = () => {
         }
       });
 
-      // Draw elegant ripples
       ripples.forEach((ripple, index) => {
-        // Outer ripple
         ctx.strokeStyle = `rgba(147, 197, 253, ${ripple.opacity * 0.4})`;
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
         ctx.stroke();
         
-        // Inner ripple
         if (ripple.radius > 3) {
           ctx.strokeStyle = `rgba(147, 197, 253, ${ripple.opacity * 0.6})`;
           ctx.lineWidth = 1;

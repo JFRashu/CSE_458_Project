@@ -17,7 +17,6 @@ const OceanAnimation = () => {
     let time = 0;
     const isMobile = window.innerWidth < 768;
 
-    // Refined wave layers
     const waveLayers = [
       { 
         heightMultiplier: 0.25, 
@@ -51,7 +50,6 @@ const OceanAnimation = () => {
       }
     ];
 
-    // Foam particles
     const foamParticles = [];
     const numFoam = isMobile ? 15 : 25;
     for (let i = 0; i < numFoam; i++) {
@@ -66,11 +64,9 @@ const OceanAnimation = () => {
     }
 
     const animate = () => {
-      // Elegant fade
       ctx.fillStyle = 'rgba(8, 47, 73, 0.06)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
-      // Draw refined wave layers
       waveLayers.forEach((layer, layerIndex) => {
         ctx.beginPath();
         const waveHeight = (isMobile ? 45 : 60) * layer.heightMultiplier;
@@ -78,7 +74,6 @@ const OceanAnimation = () => {
 
         const stepSize = isMobile ? 6 : 4;
         for (let x = 0; x <= rect.width; x += stepSize) {
-          // Create complex wave pattern
           const y = baseY +
             Math.sin(x * 0.008 + time * layer.speedMultiplier + layerIndex * 0.4) * waveHeight * 0.4 +
             Math.sin(x * 0.004 + time * layer.speedMultiplier * 0.6) * waveHeight * 0.3 +
@@ -96,7 +91,6 @@ const OceanAnimation = () => {
         ctx.lineTo(0, rect.height);
         ctx.closePath();
 
-        // Create gradient for depth
         const gradient = ctx.createLinearGradient(0, baseY - waveHeight, 0, rect.height);
         gradient.addColorStop(0, `rgba(96, 165, 250, ${layer.opacity * 0.6})`);
         gradient.addColorStop(0.5, `rgba(96, 165, 250, ${layer.opacity})`);
@@ -105,21 +99,17 @@ const OceanAnimation = () => {
         ctx.fillStyle = gradient;
         ctx.fill();
 
-        // Add wave highlights
         ctx.strokeStyle = `rgba(147, 197, 253, ${layer.opacity * 0.8})`;
         ctx.lineWidth = 1;
         ctx.stroke();
       });
 
-      // Draw foam particles with refined movement
-      foamParticles.forEach((particle, index) => {
-        // Calculate wave-influenced position
+      foamParticles.forEach((particle) => {
         particle.waveOffset += 0.03;
         const waveInfluence = Math.sin(particle.waveOffset) * (isMobile ? 8 : 12);
         
         const displayY = particle.y + waveInfluence;
 
-        // Multi-layer foam glow
         const outerGradient = ctx.createRadialGradient(
           particle.x, displayY, 0,
           particle.x, displayY, particle.size * 2.5
@@ -133,16 +123,13 @@ const OceanAnimation = () => {
         ctx.arc(particle.x, displayY, particle.size * 2.5, 0, Math.PI * 2);
         ctx.fill();
 
-        // Bright core
         ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
         ctx.beginPath();
         ctx.arc(particle.x, displayY, particle.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Update position
         particle.x += particle.speed;
         
-        // Reset when off screen
         if (particle.x > rect.width + 10) {
           particle.x = -10;
           particle.y = rect.height - (isMobile ? 120 : 160) + Math.random() * (isMobile ? 40 : 60);
@@ -152,7 +139,6 @@ const OceanAnimation = () => {
         }
       });
 
-      // Add subtle shimmer effect on water surface
       if (Math.random() < 0.02) {
         const shimmerX = Math.random() * rect.width;
         const shimmerY = rect.height - (isMobile ? 90 : 120) + Math.random() * (isMobile ? 20 : 30);
@@ -182,7 +168,6 @@ const OceanAnimation = () => {
       canvas.height = newRect.height * devicePixelRatio;
       ctx.scale(devicePixelRatio, devicePixelRatio);
 
-      // Redistribute foam particles
       foamParticles.forEach(particle => {
         particle.x = Math.random() * newRect.width;
       });
