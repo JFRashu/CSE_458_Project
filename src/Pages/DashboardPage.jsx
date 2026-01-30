@@ -14,6 +14,8 @@ import Footer from '../components/Footer';
 import { useNavigate } from '../utils/navigation';
 import { dashboardStyles } from '../components/dashboard/dashboardStyle';
 import DashboardBackground from '../components/dashboard/DashboardBackground';
+import { MotivationalQoute } from '../components/dashboard/MotivationalQoute';
+import {AIInsights} from '../components/dashboard/AIInsights';
 
 const DashboardPage = ({ navigate :propNavigate}) => {
   const navigate = useNavigate() || propNavigate;
@@ -243,7 +245,7 @@ const DashboardPage = ({ navigate :propNavigate}) => {
             </h2>
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {Object.entries(emotionsData).map(([key, emotion], index) => {
+              {Object.entries(emotionsData).map(([key, emotion]) => {
                 const Icon = emotion.icon;
                 const isHovered = hoveredCard === key;
                 
@@ -350,7 +352,7 @@ const DashboardPage = ({ navigate :propNavigate}) => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
             
             {/* Weekly Mood Chart */}
-            <div className="lg:col-span-2 glass-card rounded-2xl p-6 shadow-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <div className="lg:col-span-3 glass-card rounded-2xl p-6 shadow-lg animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-gray-800" style={{ fontFamily: "'Outfit', sans-serif" }}>
                   <BarChart3 className="inline mr-2 text-orange-600" size={24} />
@@ -384,40 +386,7 @@ const DashboardPage = ({ navigate :propNavigate}) => {
               </div>
             </div>
 
-            {/* Quick Actions */}
-            <div className="glass-card rounded-2xl p-6 shadow-lg animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-              <h2 className="text-xl font-bold text-gray-800 mb-4" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                <Zap className="inline mr-2 text-amber-600" size={24} />
-                Quick Actions
-              </h2>
-              
-              <div className="space-y-3">
-                {quickActions.map((action, index) => {
-                  const Icon = action.icon;
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => navigate(action.path)}
-                      className="w-full group relative overflow-hidden bg-white hover:bg-gradient-to-r text-left px-4 py-3.5 rounded-xl transition-all shadow-sm hover:shadow-md border border-gray-100 hover:border-transparent"
-                    >
-                      <div className={`absolute inset-0 bg-gradient-to-r ${action.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                      
-                      <div className="relative z-10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-lg bg-gradient-to-br ${action.color} group-hover:bg-white/20 transition-colors`}>
-                            <Icon className="text-white" size={18} strokeWidth={2.5} />
-                          </div>
-                          <span className="font-semibold text-gray-700 group-hover:text-white transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
-                            {action.label}
-                          </span>
-                        </div>
-                        <ArrowRight className="text-gray-400 group-hover:text-white group-hover:translate-x-1 transition-all" size={18} />
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+            
           </div>
 
           {/* Recent Activity & Achievements */}
@@ -503,45 +472,11 @@ const DashboardPage = ({ navigate :propNavigate}) => {
           </div>
 
           {/* AI Insights */}
-          <div className="glass-card rounded-2xl p-6 shadow-lg animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-            <h2 className="text-xl font-bold text-gray-800 mb-4" style={{ fontFamily: "'Outfit', sans-serif" }}>
-              <Brain className="inline mr-2 text-purple-600" size={24} />
-              AI-Powered Insights
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {insights.map((insight, index) => {
-                const Icon = insight.icon;
-                return (
-                  <div 
-                    key={index}
-                    className={`${insight.bgColor} border border-opacity-20 rounded-xl p-4 hover:shadow-md transition-all cursor-pointer group`}
-                  >
-                    <Icon className={`${insight.color} mb-3 group-hover:scale-110 transition-transform`} size={24} strokeWidth={2.5} />
-                    <p className="text-sm text-gray-700 leading-relaxed font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>
-                      {insight.text}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <AIInsights insights={insights} />
 
           {/* Motivational Quote */}
-          <div className="mt-6 relative overflow-hidden rounded-2xl animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 opacity-90"></div>
-            <div className="absolute inset-0 shimmer-bg opacity-30"></div>
-            
-            <div className="relative z-10 p-8 text-center">
-              <Sparkles className="inline-block text-yellow-300 mb-3 animate-pulse" size={32} />
-              <h3 className="text-2xl font-bold text-white mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
-                "Your mental health is a priority, not a luxury."
-              </h3>
-              <p className="text-white/90 font-medium" style={{ fontFamily: "'Lora', serif" }}>
-                Keep up the amazing work on your wellness journey! 🌟
-              </p>
-            </div>
-          </div>
+          
+          <MotivationalQoute/>
         </div>
      
       {/* Footer Component */}

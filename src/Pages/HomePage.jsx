@@ -151,12 +151,12 @@ const HomePage = ({ navigate: propNavigate }) => {
                 </div>
               </div>
             </div>
-           <h1 
-  className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight text-gray-800"
-  style={{ fontFamily: "'Playfair Display', serif" }}
->
-  Your Emotional Wellness Companion
-</h1>
+            <h1
+              className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight text-gray-800"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Your Emotional Wellness Companion
+            </h1>
 
             <p className="text-xl md:text-2xl text-gray-700 font-medium mb-8" style={{ fontFamily: "'Lora', serif" }}>
               Track, understand, and improve your emotional wellbeing with AI-powered insights
