@@ -4,7 +4,7 @@ const DashboardBackground = ({
   particles,
   floatingHearts,
   stars,
-  mousePosition
+   mousePosition = { x: 0, y: 0 }
 }) => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -82,7 +82,7 @@ const DashboardBackground = ({
         <div className="absolute inset-0 rounded-full border-2 border-amber-300/40 animate-pulse-ring" style={{ animationDelay: '1s' }}></div>
       </div>
 
-      {/* Grid Pattern */}
+      {/* Grid Pattern with Mouse Movement */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
@@ -90,9 +90,34 @@ const DashboardBackground = ({
             linear-gradient(rgba(251, 146, 60, 0.5) 1px, transparent 1px),
             linear-gradient(90deg, rgba(251, 146, 60, 0.5) 1px, transparent 1px)
           `,
-          backgroundSize: '50px 50px'
+          backgroundSize: '50px 50px',
+          transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
         }}
       />
+
+      {/* Enhanced Spotlight Effect Following Mouse */}
+      <div
+        className="absolute w-[500px] h-[500px] rounded-full pointer-events-none transition-transform duration-700 ease-out"
+        style={{
+          background: 'radial-gradient(circle, rgba(251, 146, 60, 0.25) 0%, rgba(234, 88, 12, 0.15) 40%, transparent 70%)',
+          left: mousePosition.x - 250,
+          top: mousePosition.y - 250,
+          filter: 'blur(50px)'
+        }}
+      ></div>
+
+      {/* Secondary Spotlight */}
+      <div
+        className="absolute w-[350px] h-[350px] rounded-full pointer-events-none transition-transform duration-1000 ease-out"
+        style={{
+          background: 'radial-gradient(circle, rgba(249, 115, 22, 0.2) 0%, transparent 70%)',
+          left: mousePosition.x - 175,
+          top: mousePosition.y - 175,
+          filter: 'blur(40px)',
+          transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
+        }}
+      ></div>
+
     </div>
   );
 };

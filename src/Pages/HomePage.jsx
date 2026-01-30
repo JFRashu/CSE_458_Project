@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Heart, Star, TrendingUp, Brain, Shield, Zap, Target, Users } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
 import Footer from '../components/Footer';
 import { useNavigate } from '../utils/navigation';
 import { BackgroundElements } from '../components/home';
 import { homePageStyles } from '../components/home/homeStyles';
 
 const HomePage = ({ navigate: propNavigate }) => {
-  const { isAuthenticated } = useAuth();
   const navigate = useNavigate() || propNavigate;
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);

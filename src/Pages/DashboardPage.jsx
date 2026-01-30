@@ -121,12 +121,6 @@ const DashboardPage = ({ navigate :propNavigate}) => {
     { icon: Heart, title: 'Self-Love', desc: '100 positive moments', color: 'text-pink-500', bgColor: 'bg-pink-50', unlocked: false }
   ];
 
-  const quickActions = [
-    { icon: Book, label: 'Journal', color: 'from-amber-500 to-orange-600', path: '/journal' },
-    { icon: Target, label: 'Set Goals', color: 'from-orange-500 to-rose-600', path: '/goals' },
-    { icon: Users, label: 'Community', color: 'from-rose-500 to-pink-600', path: '/community' }
-  ];
-
   const insights = [
     { icon: Brain, text: 'Your most common emotion this week is Happy 😊', color: 'text-amber-600', bgColor: 'bg-amber-50' },
     { icon: Zap, text: 'Peak emotional wellbeing occurs on Fridays', color: 'text-orange-600', bgColor: 'bg-orange-50' },
@@ -209,6 +203,7 @@ const DashboardPage = ({ navigate :propNavigate}) => {
           floatingHearts={floatingHearts}
           stars={stars}
           mousePosition={mousePosition}
+          scrollY={scrollY}
         />
           
           {/* Header */}
