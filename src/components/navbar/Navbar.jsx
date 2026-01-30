@@ -13,6 +13,14 @@ const Navbar = ({ navigate: propNavigate }) => {
   const [activeLink, setActiveLink] = useState('home');
 
   useEffect(() => {
+    // current path is home then setactive link to home
+    const path = window.location.pathname;
+   if (path === '/dashboard') {
+      setActiveLink('dashboard');
+    }
+    else{
+        setActiveLink('home');
+    }
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -21,6 +29,8 @@ const Navbar = ({ navigate: propNavigate }) => {
   }, []);
 
   const handleLogout = () => {
+    // delete all environment variables related to user session
+
     logout();
     navigate('/');
     setIsProfileOpen(false);
@@ -34,8 +44,6 @@ const Navbar = ({ navigate: propNavigate }) => {
       ]
     : [
         { name: 'Home', path: '/', icon: Home },
-        { name: 'Features', path: '/#features', icon: Sparkles },
-
       ];
 
   return (

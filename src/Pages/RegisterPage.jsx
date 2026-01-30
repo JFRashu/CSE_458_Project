@@ -3,6 +3,8 @@ import { User, Mail, Lock, Sparkles, Eye, EyeOff, CheckCircle2, Shield } from 'l
 import { useAuth } from '../contexts/AuthContext';
 import Footer from '../components/footer/Footer';
 import { useNavigate } from '../utils/navigation';
+import { RegistrationPageStyle } from '../components/registration/RegistrationPageStyle';
+import { AnimatedBackground } from '../components/registration/AnimatedBackground';
 
 const RegisterPage = ({ navigate: propNavigate }) => {
   const navigate = useNavigate() || propNavigate;
@@ -15,7 +17,7 @@ const RegisterPage = ({ navigate: propNavigate }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeLink, setActiveLink] = useState('');
+ 
   // Generate floating particles once on mount
   const [particles] = useState(() =>
     [...Array(40)].map(() => ({
@@ -71,8 +73,7 @@ const RegisterPage = ({ navigate: propNavigate }) => {
     setTimeout(() => {
       if (register(email, password, name)) {
         navigate('/dashboard');
-      
-        setActiveLink('dashboard');
+     
       } else {
         setError('Registration failed. Email may already be in use.');
         setIsLoading(false);
@@ -88,195 +89,12 @@ const RegisterPage = ({ navigate: propNavigate }) => {
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Outfit:wght@400;500;600;700&family=Lora:ital@0;1&display=swap');
-        
-        @keyframes float-particle {
-          0%, 100% {
-            transform: translateY(0) translateX(0);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(-100vh) translateX(20px);
-            opacity: 0;
-          }
-        }
-        
-        @keyframes morph-blob {
-          0%, 100% {
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            transform: translate(0, 0) rotate(0deg);
-          }
-          25% {
-            border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-            transform: translate(10px, -10px) rotate(5deg);
-          }
-          50% {
-            border-radius: 70% 30% 50% 50% / 30% 70% 60% 40%;
-            transform: translate(-10px, 10px) rotate(-5deg);
-          }
-          75% {
-            border-radius: 40% 60% 30% 70% / 60% 40% 50% 60%;
-            transform: translate(5px, 5px) rotate(3deg);
-          }
-        }
-        
-        @keyframes pulse-ring {
-          0% {
-            transform: scale(0.95);
-            opacity: 0.7;
-          }
-          50% {
-            transform: scale(1.05);
-            opacity: 0.3;
-          }
-          100% {
-            transform: scale(0.95);
-            opacity: 0.7;
-          }
-        }
-        
-        @keyframes shimmer-line {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-        
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes check-bounce {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.2);
-          }
-        }
-        
-        .animate-float-particle {
-          animation: float-particle linear infinite;
-        }
-        
-        .animate-morph-blob {
-          animation: morph-blob ease-in-out infinite;
-        }
-        
-        .animate-pulse-ring {
-          animation: pulse-ring 2s ease-in-out infinite;
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-        }
-        
-        .animate-check-bounce {
-          animation: check-bounce 0.5s ease-in-out;
-        }
-        
-        .input-glow:focus {
-          box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
-        }
-        
-        .glass-card {
-          background: rgba(255, 255, 255, 0.9);
-          backdrop-filter: blur(30px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.8);
-        }
-        
-        .shimmer-effect {
-          position: relative;
-          overflow: hidden;
-        }
-        
-        .shimmer-effect::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.4),
-            transparent
-          );
-          animation: shimmer-line 2s infinite;
-        }
-      `}</style>
+      <style>{RegistrationPageStyle}</style>
 
       <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 flex items-center justify-center p-4 pt-20 pb-10">
 
         {/* Animated Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Gradient Blobs */}
-          <div
-            className="absolute w-96 h-96 bg-gradient-to-br from-orange-400/40 to-amber-400/40 rounded-full blur-3xl animate-morph-blob"
-            style={{ top: '10%', left: '5%', animationDuration: '20s' }}
-          />
-          <div
-            className="absolute w-80 h-80 bg-gradient-to-br from-amber-400/30 to-orange-500/30 rounded-full blur-3xl animate-morph-blob"
-            style={{ bottom: '15%', right: '10%', animationDuration: '25s', animationDelay: '5s' }}
-          />
-          <div
-            className="absolute w-72 h-72 bg-gradient-to-br from-rose-400/25 to-orange-400/25 rounded-full blur-3xl animate-morph-blob"
-            style={{ top: '50%', right: '5%', animationDuration: '30s', animationDelay: '10s' }}
-          />
-
-          {/* Floating Particles */}
-          {particles.map((particle, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-gradient-to-br from-orange-400 to-amber-400 animate-float-particle"
-              style={{
-                width: particle.width + 'px',
-                height: particle.height + 'px',
-                left: particle.left + '%',
-                bottom: '-20px',
-                animationDuration: particle.animationDuration + 's',
-                animationDelay: particle.animationDelay + 's',
-                opacity: particle.opacity,
-                boxShadow: '0 0 10px rgba(251, 146, 60, 0.5)'
-              }}
-            />
-          ))}
-
-          {/* Decorative Rings */}
-          <div className="absolute top-1/4 right-1/4 w-64 h-64">
-            <div className="absolute inset-0 rounded-full border-2 border-orange-300/30 animate-pulse-ring"></div>
-            <div className="absolute inset-0 rounded-full border-2 border-amber-300/30 animate-pulse-ring" style={{ animationDelay: '1s' }}></div>
-          </div>
-
-          {/* Grid Pattern */}
-          <div
-            className="absolute inset-0 opacity-5"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(251, 146, 60, 0.5) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(251, 146, 60, 0.5) 1px, transparent 1px)
-              `,
-              backgroundSize: '50px 50px'
-            }}
-          />
-        </div>
+        <AnimatedBackground particles={particles} />
 
         {/* Register Card */}
         <div className="relative z-10 w-full max-w-md animate-fade-in-up">

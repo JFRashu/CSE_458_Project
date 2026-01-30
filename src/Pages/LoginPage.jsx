@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { Heart, Mail, Lock, Sparkles, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from '../utils/navigation';
-import Footer from '../components/footer/Footer';
+import { loginPageStyle } from '../components/login/loginPageStyle';
+import { AnimatedBackground } from '../components/registration/AnimatedBackground';
+import { LoginCardHeader } from '../components/login/LoginCardHeader';
+import { LoginBootomInfo } from '../components/login/LoginBootomInfo';
+import { LoginDivider } from '../components/login/LoginDivider';
+
 const LoginPage = ({ navigate : propNavigate}) => {
   const navigate = useNavigate() || propNavigate;
   const { login } = useAuth();
@@ -11,7 +16,7 @@ const LoginPage = ({ navigate : propNavigate}) => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeLink, setActiveLink] = useState('');
+
   // Generate floating particles once on mount
   const [particles] = useState(() =>
     [...Array(40)].map(() => ({
@@ -38,7 +43,7 @@ const LoginPage = ({ navigate : propNavigate}) => {
     setTimeout(() => {
       if (login(email, password)) {
         navigate('/dashboard');
-        setActiveLink('dashboard');
+        
       } else {
         setError('Invalid credentials. Please try again.');
         setIsLoading(false);
@@ -54,227 +59,19 @@ const LoginPage = ({ navigate : propNavigate}) => {
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Outfit:wght@400;500;600;700&family=Lora:ital@0;1&display=swap');
-        
-        @keyframes float-particle {
-          0%, 100% {
-            transform: translateY(0) translateX(0);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(-100vh) translateX(20px);
-            opacity: 0;
-          }
-        }
-        
-        @keyframes morph-blob {
-          0%, 100% {
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            transform: translate(0, 0) rotate(0deg);
-          }
-          25% {
-            border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-            transform: translate(10px, -10px) rotate(5deg);
-          }
-          50% {
-            border-radius: 70% 30% 50% 50% / 30% 70% 60% 40%;
-            transform: translate(-10px, 10px) rotate(-5deg);
-          }
-          75% {
-            border-radius: 40% 60% 30% 70% / 60% 40% 50% 60%;
-            transform: translate(5px, 5px) rotate(3deg);
-          }
-        }
-        
-        @keyframes pulse-ring {
-          0% {
-            transform: scale(0.95);
-            opacity: 0.7;
-          }
-          50% {
-            transform: scale(1.05);
-            opacity: 0.3;
-          }
-          100% {
-            transform: scale(0.95);
-            opacity: 0.7;
-          }
-        }
-        
-        @keyframes shimmer-line {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-        
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        
-        .animate-float-particle {
-          animation: float-particle linear infinite;
-        }
-        
-        .animate-morph-blob {
-          animation: morph-blob ease-in-out infinite;
-        }
-        
-        .animate-pulse-ring {
-          animation: pulse-ring 2s ease-in-out infinite;
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-        }
-        
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-        
-        .input-glow:focus {
-          box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
-        }
-        
-        .glass-card {
-          background: rgba(255, 255, 255, 0.9);
-          backdrop-filter: blur(30px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.8);
-        }
-        
-        .shimmer-effect {
-          position: relative;
-          overflow: hidden;
-        }
-        
-        .shimmer-effect::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.4),
-            transparent
-          );
-          animation: shimmer-line 2s infinite;
-        }
-      `}</style>
+      <style>{loginPageStyle}</style>
 
       <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 flex items-center justify-center p-4 pt-20">
         
         {/* Animated Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Gradient Blobs */}
-          <div 
-            className="absolute w-96 h-96 bg-gradient-to-br from-orange-400/40 to-amber-400/40 rounded-full blur-3xl animate-morph-blob"
-            style={{ top: '10%', left: '5%', animationDuration: '20s' }}
-          />
-          <div 
-            className="absolute w-80 h-80 bg-gradient-to-br from-amber-400/30 to-orange-500/30 rounded-full blur-3xl animate-morph-blob"
-            style={{ bottom: '15%', right: '10%', animationDuration: '25s', animationDelay: '5s' }}
-          />
-          <div 
-            className="absolute w-72 h-72 bg-gradient-to-br from-rose-400/25 to-orange-400/25 rounded-full blur-3xl animate-morph-blob"
-            style={{ top: '50%', right: '5%', animationDuration: '30s', animationDelay: '10s' }}
-          />
-          
-          {/* Floating Particles */}
-          {particles.map((particle, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-gradient-to-br from-orange-400 to-amber-400 animate-float-particle"
-              style={{
-                width: particle.width + 'px',
-                height: particle.height + 'px',
-                left: particle.left + '%',
-                bottom: '-20px',
-                animationDuration: particle.animationDuration + 's',
-                animationDelay: particle.animationDelay + 's',
-                opacity: particle.opacity,
-                boxShadow: '0 0 10px rgba(251, 146, 60, 0.5)'
-              }}
-            />
-          ))}
-          
-          {/* Decorative Rings */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64">
-            <div className="absolute inset-0 rounded-full border-2 border-orange-300/30 animate-pulse-ring"></div>
-            <div className="absolute inset-0 rounded-full border-2 border-amber-300/30 animate-pulse-ring" style={{ animationDelay: '1s' }}></div>
-          </div>
-          
-          {/* Grid Pattern */}
-          <div 
-            className="absolute inset-0 opacity-5"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(251, 146, 60, 0.5) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(251, 146, 60, 0.5) 1px, transparent 1px)
-              `,
-              backgroundSize: '50px 50px'
-            }}
-          />
-        </div>
+        {<AnimatedBackground particles={particles} />}
 
         {/* Login Card */}
         <div className="relative z-10 w-full max-w-md animate-fade-in-up">
           <div className="glass-card rounded-3xl shadow-2xl overflow-hidden">
             
             {/* Card Header with Gradient */}
-            <div className="relative bg-gradient-to-br from-amber-500 via-orange-500 to-orange-600 p-8 pb-12">
-              {/* Decorative Elements */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"></div>
-              
-              <div className="relative text-center">
-                {/* Logo with Animation */}
-                <div className="inline-block mb-4 relative">
-                  <div className="absolute inset-0 rounded-full bg-white/30 animate-pulse-ring"></div>
-                  <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse-ring" style={{ animationDelay: '0.5s' }}></div>
-                  <div className="relative bg-white p-4 rounded-2xl shadow-xl">
-                    <Heart className="text-orange-600" size={40} strokeWidth={2.5} fill="rgba(251, 146, 60, 0.2)" />
-                  </div>
-                </div>
-                
-                <h2 
-                  className="text-4xl font-bold text-white mb-2 tracking-tight"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Welcome Back
-                </h2>
-                <p className="text-orange-100 text-base font-medium" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                  Continue your wellness journey
-                </p>
-              </div>
-            </div>
+            <LoginCardHeader/>
 
             {/* Card Body */}
             <div className="p-8 -mt-6 relative">
@@ -377,16 +174,7 @@ const LoginPage = ({ navigate : propNavigate}) => {
                 </button>
 
                 {/* Divider */}
-                <div className="relative py-4">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-200"></div>
-                  </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-white text-gray-500 font-medium" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                      New to MindfulSpace?
-                    </span>
-                  </div>
-                </div>
+                <LoginDivider/>
 
                 {/* Sign Up Link */}
                 <div className="text-center">
@@ -404,15 +192,7 @@ const LoginPage = ({ navigate : propNavigate}) => {
           </div>
 
           {/* Bottom Info */}
-          <div className="mt-6 text-center">
-            <p className="text-gray-600 text-sm" style={{ fontFamily: "'Outfit', sans-serif" }}>
-              Protected by advanced security measures
-            </p>
-            <div className="flex items-center justify-center gap-2 mt-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-xs text-gray-500 font-medium">Secure Connection</span>
-            </div>
-          </div>
+          <LoginBootomInfo/> 
         </div>
    
       </div>
