@@ -70,12 +70,6 @@ const HomePage = ({ navigate: propNavigate }) => {
   );
 
   useEffect(() => {
-    // Redirect to dashboard if already logged in
-    if (isAuthenticated) {
-      navigate('/dashboard');
-      return;
-    }
-
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -88,7 +82,7 @@ const HomePage = ({ navigate: propNavigate }) => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isAuthenticated, navigate]);
+  }, []);
 
   const features = [
     {

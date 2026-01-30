@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Heart, Menu, X, User, LogOut, Settings, BarChart3, Sparkles, Home, BookOpen, Trophy } from 'lucide-react';
+import { Heart, Menu, X, User, LogOut, Settings, BarChart3, Sparkles, Home, Trophy } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from '../utils/navigation';
 
@@ -30,7 +30,6 @@ const Navbar = ({ navigate: propNavigate }) => {
     ? [
         { name: 'Home', path: '/', icon: Home },
         { name: 'Dashboard', path: '/dashboard', icon: BarChart3 },
-        { name: 'Resources', path: '/resources', icon: BookOpen },
       ]
     : [
         { name: 'Home', path: '/', icon: Home },

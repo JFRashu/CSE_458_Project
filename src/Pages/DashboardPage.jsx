@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { 
-  Activity, Calendar, TrendingUp, Award, Heart, Brain, Sparkles, 
-  Target, Zap, Clock, BarChart3, X, Book, Users, Star, ArrowRight,
+  Activity, Calendar, TrendingUp, Award, Brain, Sparkles, 
+  Target, Zap, Clock, BarChart3, X, Book, Users, ArrowRight,
   CheckCircle2, Trophy, Flame, ChevronRight, Smile, Sun, Cloud, Wind,
-  Frown, Meh
+  Frown, Meh,
+  Star,
+  Heart
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { emotionsData } from '../data/emotionsData';
 import AnimationBackground from '../components/AnimationBackground';
 import Footer from '../components/Footer';
 import { useNavigate } from '../utils/navigation';
+import { dashboardStyles } from '../components/dashboard/dashboardStyle';
+import DashboardBackground from '../components/dashboard/DashboardBackground';
 
 const DashboardPage = ({ navigate :propNavigate}) => {
   const navigate = useNavigate() || propNavigate;
@@ -193,287 +197,26 @@ const DashboardPage = ({ navigate :propNavigate}) => {
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Outfit:wght@400;500;600;700&family=Lora:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
-        
-        @keyframes float-particle {
-          0%, 100% {
-            transform: translateY(0) translateX(0) rotate(0deg);
-            opacity: 0;
-          }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% {
-            transform: translateY(-100vh) translateX(30px) rotate(180deg);
-            opacity: 0;
-          }
-        }
-        
-        @keyframes float-heart {
-          0%, 100% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 0;
-          }
-          10% { opacity: 0.6; }
-          90% { opacity: 0.6; }
-          100% {
-            transform: translateY(-100vh) rotate(360deg);
-            opacity: 0;
-          }
-        }
-        
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 1; }
-        }
-        
-        @keyframes morph-blob {
-          0%, 100% {
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            transform: translate(0, 0) rotate(0deg);
-          }
-          25% {
-            border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-            transform: translate(10px, -10px) rotate(5deg);
-          }
-          50% {
-            border-radius: 70% 30% 50% 50% / 30% 70% 60% 40%;
-            transform: translate(-10px, 10px) rotate(-5deg);
-          }
-          75% {
-            border-radius: 40% 60% 30% 70% / 60% 40% 50% 60%;
-            transform: translate(5px, 5px) rotate(3deg);
-          }
-        }
-        
-        @keyframes pulse-ring {
-          0% {
-            transform: scale(0.95);
-            opacity: 0.5;
-          }
-          50% {
-            transform: scale(1.05);
-            opacity: 0.2;
-          }
-          100% {
-            transform: scale(0.95);
-            opacity: 0.5;
-          }
-        }
-        
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes shimmer {
-          0% { background-position: -1000px 0; }
-          100% { background-position: 1000px 0; }
-        }
-        
-        @keyframes bar-grow {
-          from {
-            transform: scaleY(0);
-          }
-          to {
-            transform: scaleY(1);
-          }
-        }
-        
-        @keyframes glow-pulse {
-          0%, 100% {
-            box-shadow: 0 0 20px rgba(251, 146, 60, 0.5);
-          }
-          50% {
-            box-shadow: 0 0 30px rgba(251, 146, 60, 0.8);
-          }
-        }
-        
-        .animate-float-particle {
-          animation: float-particle linear infinite;
-        }
-        
-        .animate-float-heart {
-          animation: float-heart linear infinite;
-        }
-        
-        .animate-twinkle {
-          animation: twinkle ease-in-out infinite;
-        }
-        
-        .animate-morph-blob {
-          animation: morph-blob ease-in-out infinite;
-        }
-        
-        .animate-pulse-ring {
-          animation: pulse-ring 3s ease-in-out infinite;
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.6s ease-out forwards;
-        }
-        
-        .animate-glow-pulse {
-          animation: glow-pulse 2s ease-in-out infinite;
-        }
-        
-        .glass-card {
-          background: rgba(255, 255, 255, 0.85);
-          backdrop-filter: blur(20px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.6);
-        }
-        
-        .glass-morphism {
-          background: rgba(255, 255, 255, 0.75);
-          backdrop-filter: blur(12px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-        
-        .shimmer-bg {
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-          background-size: 1000px 100%;
-          animation: shimmer 3s infinite;
-        }
-        
-        .bar-chart-item {
-          transform-origin: bottom;
-          animation: bar-grow 0.6s ease-out forwards;
-        }
-        
-        .cursor-pointer:hover {
-          transform: translateY(-2px);
-        }
-        
-        .stat-card:hover {
-          transform: translateY(-4px) scale(1.02);
-        }
-        
-        .card-3d {
-          perspective: 1000px;
-          transition: all 0.3s ease;
-        }
-        
-        .card-shine::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-          transition: left 0.5s;
-        }
-        
-        .card-shine:hover::before {
-          left: 100%;
-        }
-      `}</style>
+      <style>{dashboardStyles}</style>
 
       <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 pt-20 pb-12 px-4">
         
         {/* Dynamic Background - Matching Homepage Theme */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Animated Gradient Blobs */}
-          <div 
-            className="absolute w-96 h-96 bg-gradient-to-br from-orange-400/30 to-amber-400/30 rounded-full blur-3xl animate-morph-blob"
-            style={{ top: '5%', left: '10%', animationDuration: '25s' }}
-          />
-          <div 
-            className="absolute w-80 h-80 bg-gradient-to-br from-rose-400/25 to-pink-400/25 rounded-full blur-3xl animate-morph-blob"
-            style={{ top: '60%', right: '5%', animationDuration: '30s', animationDelay: '5s' }}
-          />
-          <div 
-            className="absolute w-72 h-72 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full blur-3xl animate-morph-blob"
-            style={{ bottom: '10%', left: '5%', animationDuration: '28s', animationDelay: '3s' }}
-          />
-          
-          {/* Floating Particles */}
-          {particles.map((particle, i) => (
-            <div
-              key={`particle-${i}`}
-              className="absolute rounded-full bg-gradient-to-br from-orange-400 to-amber-400 animate-float-particle"
-              style={{
-                width: particle.size + 'px',
-                height: particle.size + 'px',
-                left: particle.x + '%',
-                top: particle.y + '%',
-                animationDuration: particle.duration + 's',
-                animationDelay: particle.delay + 's',
-                opacity: particle.opacity,
-                boxShadow: '0 0 10px rgba(251, 146, 60, 0.5)',
-                transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
-              }}
-            />
-          ))}
-          
-          {/* Floating Hearts */}
-          {floatingHearts.map((heart, i) => (
-            <Heart
-              key={`heart-${i}`}
-              className="absolute text-rose-400 animate-float-heart"
-              size={heart.size}
-              style={{
-                left: heart.x + '%',
-                top: heart.y + '%',
-                animationDuration: heart.duration + 's',
-                animationDelay: heart.delay + 's',
-                fill: 'rgba(251, 113, 133, 0.3)',
-                stroke: 'rgba(251, 113, 133, 0.6)',
-                transform: `translate(${mousePosition.x * 0.005}px, ${mousePosition.y * 0.005}px)`
-              }}
-            />
-          ))}
-          
-          {/* Stars */}
-          {stars.map((star, i) => (
-            <Star
-              key={`star-${i}`}
-              className="absolute text-amber-400 animate-twinkle"
-              size={star.size}
-              style={{
-                left: star.x + '%',
-                top: star.y + '%',
-                animationDuration: star.duration + 's',
-                animationDelay: star.delay + 's',
-                fill: 'currentColor',
-                transform: `translate(${mousePosition.x * 0.008}px, ${mousePosition.y * 0.008}px)`
-              }}
-            />
-          ))}
-          
-          {/* Decorative Rings */}
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 opacity-30">
-            <div className="absolute inset-0 rounded-full border-2 border-orange-300/40 animate-pulse-ring"></div>
-            <div className="absolute inset-0 rounded-full border-2 border-amber-300/40 animate-pulse-ring" style={{ animationDelay: '1s' }}></div>
-          </div>
-          
-          {/* Grid Pattern */}
-          <div 
-            className="absolute inset-0 opacity-[0.03]"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(251, 146, 60, 0.5) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(251, 146, 60, 0.5) 1px, transparent 1px)
-              `,
-              backgroundSize: '50px 50px'
-            }}
-          />
-        </div>
-
-        {/* Main Content */}
-        <div className="relative z-10 max-w-7xl mx-auto">
+        <DashboardBackground
+          particles={particles}
+          floatingHearts={floatingHearts}
+          stars={stars}
+          mousePosition={mousePosition}
+        />
           
           {/* Header */}
           <div className="mb-8 animate-fade-in-up">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-800 via-orange-700 to-gray-800 bg-clip-text text-transparent mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+                 <h1 
+  className="text-3xl md:text-4xl font-bold mb-6 leading-tight tracking-tight text-gray-800"
+  style={{ fontFamily: "'Playfair Display', serif" }}
+>
                   Welcome back, {user?.name}! 👋
                 </h1>
                 <p className="text-lg text-gray-600 font-medium" style={{ fontFamily: "'Lora', serif" }}>
@@ -800,7 +543,7 @@ const DashboardPage = ({ navigate :propNavigate}) => {
             </div>
           </div>
         </div>
-      </div>
+     
       {/* Footer Component */}
         <Footer navigate={navigate} />
     </>
