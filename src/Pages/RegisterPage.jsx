@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { User, Mail, Lock, Sparkles, Eye, EyeOff, CheckCircle2, Shield } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import Footer from '../components/Footer';
+import { useNavigate } from '../utils/navigation';
 
-const RegisterPage = ({ navigate }) => {
+const RegisterPage = ({ navigate: propNavigate }) => {
+  const navigate = useNavigate() || propNavigate;
   const { register } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,7 +37,7 @@ const RegisterPage = ({ navigate }) => {
     if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
     if (/\d/.test(password)) strength++;
     if (/[^a-zA-Z\d]/.test(password)) strength++;
-    
+
     if (strength <= 2) return { strength: 33, label: 'Weak', color: 'bg-red-500' };
     if (strength <= 3) return { strength: 66, label: 'Medium', color: 'bg-yellow-500' };
     return { strength: 100, label: 'Strong', color: 'bg-green-500' };
@@ -219,23 +222,23 @@ const RegisterPage = ({ navigate }) => {
       `}</style>
 
       <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 flex items-center justify-center p-4 pt-20 pb-10">
-        
+
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Gradient Blobs */}
-          <div 
+          <div
             className="absolute w-96 h-96 bg-gradient-to-br from-orange-400/40 to-amber-400/40 rounded-full blur-3xl animate-morph-blob"
             style={{ top: '10%', left: '5%', animationDuration: '20s' }}
           />
-          <div 
+          <div
             className="absolute w-80 h-80 bg-gradient-to-br from-amber-400/30 to-orange-500/30 rounded-full blur-3xl animate-morph-blob"
             style={{ bottom: '15%', right: '10%', animationDuration: '25s', animationDelay: '5s' }}
           />
-          <div 
+          <div
             className="absolute w-72 h-72 bg-gradient-to-br from-rose-400/25 to-orange-400/25 rounded-full blur-3xl animate-morph-blob"
             style={{ top: '50%', right: '5%', animationDuration: '30s', animationDelay: '10s' }}
           />
-          
+
           {/* Floating Particles */}
           {particles.map((particle, i) => (
             <div
@@ -253,15 +256,15 @@ const RegisterPage = ({ navigate }) => {
               }}
             />
           ))}
-          
+
           {/* Decorative Rings */}
           <div className="absolute top-1/4 right-1/4 w-64 h-64">
             <div className="absolute inset-0 rounded-full border-2 border-orange-300/30 animate-pulse-ring"></div>
             <div className="absolute inset-0 rounded-full border-2 border-amber-300/30 animate-pulse-ring" style={{ animationDelay: '1s' }}></div>
           </div>
-          
+
           {/* Grid Pattern */}
-          <div 
+          <div
             className="absolute inset-0 opacity-5"
             style={{
               backgroundImage: `
@@ -276,13 +279,13 @@ const RegisterPage = ({ navigate }) => {
         {/* Register Card */}
         <div className="relative z-10 w-full max-w-md animate-fade-in-up">
           <div className="glass-card rounded-3xl shadow-2xl overflow-hidden">
-            
+
             {/* Card Header with Gradient */}
             <div className="relative bg-gradient-to-br from-amber-500 via-orange-500 to-orange-600 p-8 pb-12">
               {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"></div>
-              
+
               <div className="relative text-center">
                 {/* Logo with Animation */}
                 <div className="inline-block mb-4 relative">
@@ -292,8 +295,8 @@ const RegisterPage = ({ navigate }) => {
                     <User className="text-orange-600" size={40} strokeWidth={2.5} />
                   </div>
                 </div>
-                
-                <h2 
+
+                <h2
                   className="text-4xl font-bold text-white mb-2 tracking-tight"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
@@ -309,9 +312,9 @@ const RegisterPage = ({ navigate }) => {
             <div className="p-8 -mt-6 relative">
               {/* White curve overlay */}
               <div className="absolute top-0 left-0 right-0 h-6 bg-white rounded-t-3xl"></div>
-              
+
               <div className="space-y-4 relative" onKeyPress={handleKeyPress}>
-                
+
                 {/* Error Message */}
                 {error && (
                   <div className="bg-red-50 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded-lg shadow-sm animate-fade-in-up">
@@ -324,7 +327,7 @@ const RegisterPage = ({ navigate }) => {
 
                 {/* Name Input */}
                 <div className="space-y-2">
-                  <label 
+                  <label
                     className="block text-gray-700 font-semibold text-sm"
                     style={{ fontFamily: "'Outfit', sans-serif" }}
                   >
@@ -345,7 +348,7 @@ const RegisterPage = ({ navigate }) => {
 
                 {/* Email Input */}
                 <div className="space-y-2">
-                  <label 
+                  <label
                     className="block text-gray-700 font-semibold text-sm"
                     style={{ fontFamily: "'Outfit', sans-serif" }}
                   >
@@ -366,7 +369,7 @@ const RegisterPage = ({ navigate }) => {
 
                 {/* Password Input */}
                 <div className="space-y-2">
-                  <label 
+                  <label
                     className="block text-gray-700 font-semibold text-sm"
                     style={{ fontFamily: "'Outfit', sans-serif" }}
                   >
@@ -390,22 +393,21 @@ const RegisterPage = ({ navigate }) => {
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
                   </div>
-                  
+
                   {/* Password Strength Indicator */}
                   {password && (
                     <div className="space-y-1">
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-600 font-medium">Password Strength</span>
-                        <span className={`text-xs font-bold ${
-                          passwordStrength.label === 'Weak' ? 'text-red-600' :
-                          passwordStrength.label === 'Medium' ? 'text-yellow-600' :
-                          'text-green-600'
-                        }`}>
+                        <span className={`text-xs font-bold ${passwordStrength.label === 'Weak' ? 'text-red-600' :
+                            passwordStrength.label === 'Medium' ? 'text-yellow-600' :
+                              'text-green-600'
+                          }`}>
                           {passwordStrength.label}
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                        <div 
+                        <div
                           className={`h-full ${passwordStrength.color} rounded-full transition-all duration-500`}
                           style={{ width: `${passwordStrength.strength}%` }}
                         ></div>
@@ -416,7 +418,7 @@ const RegisterPage = ({ navigate }) => {
 
                 {/* Confirm Password Input */}
                 <div className="space-y-2">
-                  <label 
+                  <label
                     className="block text-gray-700 font-semibold text-sm"
                     style={{ fontFamily: "'Outfit', sans-serif" }}
                   >
@@ -518,6 +520,8 @@ const RegisterPage = ({ navigate }) => {
           </div>
         </div>
       </div>
+      {/* Footer Component */}
+      <Footer navigate={navigate} />
     </>
   );
 };
