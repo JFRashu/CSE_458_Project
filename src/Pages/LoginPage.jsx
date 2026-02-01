@@ -36,6 +36,10 @@ const LoginPage = ({ navigate : propNavigate}) => {
   const handleSubmit = async () => {
     setError('');
     setIsLoading(true);
+
+    setBottomInfo(bottomInfo);
+    setButtonMessage(buttonMessage);
+    setMessage(message);
     
     if (!email || !password) {
       setError('Please fill in all fields');

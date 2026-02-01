@@ -37,6 +37,7 @@ const RegisterPage = ({ navigate: propNavigate }) => {
 
   // Password strength checker
   const getPasswordStrength = () => {
+
     if (!password) return { strength: 0, label: '', color: '' };
     let strength = 0;
     if (password.length >= 6) strength++;
@@ -55,6 +56,10 @@ const RegisterPage = ({ navigate: propNavigate }) => {
   const handleSubmit = async () => {
     setError('');
     setIsLoading(true);
+
+     setBottomInfo(bottomInfo);
+    setButtonMessage(buttonMessage);
+    setMessage(message);
 
     if (!name || !email || !password || !confirmPassword) {
       setError('Please fill in all fields');
