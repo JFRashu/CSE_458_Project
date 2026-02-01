@@ -5,6 +5,9 @@ import Footer from '../components/footer/Footer';
 import { useNavigate } from '../utils/navigation';
 import { RegistrationPageStyle } from '../components/registration/RegistrationPageStyle';
 import { AnimatedBackground } from '../components/registration/AnimatedBackground';
+import { LoginDivider } from '../components/login/LoginDivider';
+import { CreateAccountButton } from '../components/login/CreateAccountButton';
+import { LoginBootomInfo } from '../components/login/LoginBootomInfo';
 
 const RegisterPage = ({ navigate: propNavigate }) => {
   const navigate = useNavigate() || propNavigate;
@@ -17,7 +20,9 @@ const RegisterPage = ({ navigate: propNavigate }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
- 
+  const [message,setMessage] = useState("Already have an account?");
+  const [buttonMessage,setButtonMessage] = useState("Login Here →");
+  const [bottomInfo,setBottomInfo] = useState("🔒 Your data is protected with 256-bit encryption");
   // Generate floating particles once on mount
   const [particles] = useState(() =>
     [...Array(40)].map(() => ({
@@ -306,38 +311,16 @@ const RegisterPage = ({ navigate: propNavigate }) => {
                 </button>
 
                 {/* Divider */}
-                <div className="relative py-3">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-200"></div>
-                  </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-white text-gray-500 font-medium" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                      Already have an account?
-                    </span>
-                  </div>
-                </div>
+                <LoginDivider Message={message}/>
 
                 {/* Login Link */}
-                <div className="text-center">
-                  <button
-                    onClick={() => navigate('/login')}
-                    className="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-bold text-base transition-all hover:gap-3"
-                    style={{ fontFamily: "'Outfit', sans-serif" }}
-                  >
-                    Login Instead
-                    <span className="text-xl">→</span>
-                  </button>
-                </div>
+               <CreateAccountButton onClick={() => navigate('/login')} buttonMessage={buttonMessage} />
               </div>
             </div>
           </div>
 
           {/* Bottom Info */}
-          <div className="mt-6 text-center">
-            <p className="text-gray-600 text-sm" style={{ fontFamily: "'Outfit', sans-serif" }}>
-              🔒 Your data is protected with 256-bit encryption
-            </p>
-          </div>
+          <LoginBootomInfo bottomInfo={bottomInfo}/>
         </div>
       </div>
      

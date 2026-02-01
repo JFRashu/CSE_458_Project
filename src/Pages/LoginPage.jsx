@@ -7,6 +7,7 @@ import { AnimatedBackground } from '../components/registration/AnimatedBackgroun
 import { LoginCardHeader } from '../components/login/LoginCardHeader';
 import { LoginBootomInfo } from '../components/login/LoginBootomInfo';
 import { LoginDivider } from '../components/login/LoginDivider';
+import { CreateAccountButton } from '../components/login/CreateAccountButton';
 
 const LoginPage = ({ navigate : propNavigate}) => {
   const navigate = useNavigate() || propNavigate;
@@ -16,6 +17,9 @@ const LoginPage = ({ navigate : propNavigate}) => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [message,setMessage] = useState("New to MindfulSpace?");
+  const [buttonMessage,setButtonMessage] = useState("Create an Account →");
+  const [bottomInfo,setBottomInfo] = useState("Protected by advanced security measures");
 
   // Generate floating particles once on mount
   const [particles] = useState(() =>
@@ -174,25 +178,15 @@ const LoginPage = ({ navigate : propNavigate}) => {
                 </button>
 
                 {/* Divider */}
-                <LoginDivider/>
-
+               <LoginDivider Message={message}/>
                 {/* Sign Up Link */}
-                <div className="text-center">
-                  <button
-                    onClick={() => navigate('/register')}
-                    className="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-bold text-base transition-all hover:gap-3"
-                    style={{ fontFamily: "'Outfit', sans-serif" }}
-                  >
-                    Create an Account
-                    <span className="text-xl">→</span>
-                  </button>
-                </div>
+                <CreateAccountButton onClick={() => navigate('/register')} buttonMessage={buttonMessage} />
               </div>
             </div>
           </div>
 
           {/* Bottom Info */}
-          <LoginBootomInfo/> 
+          <LoginBootomInfo bottomInfo={bottomInfo}/> 
         </div>
    
       </div>

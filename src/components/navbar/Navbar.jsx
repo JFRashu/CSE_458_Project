@@ -13,20 +13,22 @@ const Navbar = ({ navigate: propNavigate }) => {
   const [activeLink, setActiveLink] = useState('home');
 
   useEffect(() => {
-    // current path is home then setactive link to home
-    const path = window.location.pathname;
-   if (path === '/dashboard') {
-      setActiveLink('dashboard');
-    }
-    else{
-        setActiveLink('home');
-    }
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const path = window.location.pathname;
+  
+  // Set active link based on current path
+  if (path === '/dashboard') {
+    setActiveLink('dashboard');
+  } else {
+    setActiveLink('home');
+  }
+  
+  const handleScroll = () => {
+    setIsScrolled(window.scrollY > 20);
+  };
+  
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
 
   const handleLogout = () => {
     // delete all environment variables related to user session
