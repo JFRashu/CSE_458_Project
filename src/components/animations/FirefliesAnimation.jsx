@@ -16,14 +16,14 @@ const FirefliesAnimation = () => {
 
     const isMobile = window.innerWidth < 768;
     const fireflies = [];
-    const numFireflies = isMobile ? 35 : 60;
+    const numFireflies = isMobile ? 40 : 100;
 
     for (let i = 0; i < numFireflies; i++) {
       fireflies.push({
         x: Math.random() * rect.width,
         y: Math.random() * rect.height,
-        vx: (Math.random() - 0.5) * (isMobile ? 0.8 : 1.5),
-        vy: (Math.random() - 0.5) * (isMobile ? 0.8 : 1.5),
+        vx: (Math.random() - 0.5) * (isMobile ? 1.5 : 2.5), // Increased from 0.8/1.5
+        vy: (Math.random() - 0.5) * (isMobile ? 1.5 : 2.5), // Increased from 0.8/1.5
         brightness: Math.random() * Math.PI * 2,
         brightnessSpeed: Math.random() * 0.04 + 0.02,
         size: Math.random() * (isMobile ? 2.5 : 3.5) + (isMobile ? 1.5 : 2),
@@ -37,6 +37,7 @@ const FirefliesAnimation = () => {
     }
 
     const animate = () => {
+      // Solid black background - no trail effect
       ctx.fillStyle = 'rgba(0, 0, 0, 1)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
@@ -102,7 +103,7 @@ const FirefliesAnimation = () => {
           firefly.reachedTarget = true;
         }
 
-        const targetInfluence = 0.02;
+        const targetInfluence = 0.035; // Increased from 0.02
         firefly.vx += (dx / distance) * targetInfluence * (1 - firefly.reachedTarget ? 1 : 0);
         firefly.vy += (dy / distance) * targetInfluence * (1 - firefly.reachedTarget ? 1 : 0);
 
@@ -113,7 +114,7 @@ const FirefliesAnimation = () => {
         firefly.vy *= 0.98;
 
         const speed = Math.sqrt(firefly.vx * firefly.vx + firefly.vy * firefly.vy);
-        const maxSpeed = isMobile ? 2 : 3;
+        const maxSpeed = isMobile ? 10 : 15; // Increased from 2/3
         if (speed > maxSpeed) {
           firefly.vx = (firefly.vx / speed) * maxSpeed;
           firefly.vy = (firefly.vy / speed) * maxSpeed;
