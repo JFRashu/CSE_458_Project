@@ -37,7 +37,7 @@ const FirefliesAnimation = () => {
     }
 
     const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 1)';
       ctx.fillRect(0, 0, rect.width, rect.height);
 
       fireflies.forEach((firefly) => {

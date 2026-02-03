@@ -20,9 +20,9 @@ const RegisterPage = ({ navigate: propNavigate }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [message,setMessage] = useState("Already have an account?");
-  const [buttonMessage,setButtonMessage] = useState("Login Here →");
-  const [bottomInfo,setBottomInfo] = useState("🔒 Your data is protected with 256-bit encryption");
+  const [message, setMessage] = useState("Already have an account?");
+  const [buttonMessage, setButtonMessage] = useState("Login Here →");
+  const [bottomInfo, setBottomInfo] = useState("🔒 Your data is protected with 256-bit encryption");
   // Generate floating particles once on mount
   const [particles] = useState(() =>
     [...Array(40)].map(() => ({
@@ -57,7 +57,7 @@ const RegisterPage = ({ navigate: propNavigate }) => {
     setError('');
     setIsLoading(true);
 
-     setBottomInfo(bottomInfo);
+    setBottomInfo(bottomInfo);
     setButtonMessage(buttonMessage);
     setMessage(message);
 
@@ -83,7 +83,7 @@ const RegisterPage = ({ navigate: propNavigate }) => {
     setTimeout(() => {
       if (register(email, password, name)) {
         navigate('/dashboard');
-     
+
       } else {
         setError('Registration failed. Email may already be in use.');
         setIsLoading(false);
@@ -230,8 +230,8 @@ const RegisterPage = ({ navigate: propNavigate }) => {
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-gray-600 font-medium">Password Strength</span>
                         <span className={`text-xs font-bold ${passwordStrength.label === 'Weak' ? 'text-red-600' :
-                            passwordStrength.label === 'Medium' ? 'text-yellow-600' :
-                              'text-green-600'
+                          passwordStrength.label === 'Medium' ? 'text-yellow-600' :
+                            'text-green-600'
                           }`}>
                           {passwordStrength.label}
                         </span>
@@ -316,19 +316,19 @@ const RegisterPage = ({ navigate: propNavigate }) => {
                 </button>
 
                 {/* Divider */}
-                <LoginDivider Message={message}/>
+                <LoginDivider Message={message} />
 
                 {/* Login Link */}
-               <CreateAccountButton onClick={() => navigate('/login')} buttonMessage={buttonMessage} />
+                <CreateAccountButton onClick={() => navigate('/login')} buttonMessage={buttonMessage} />
               </div>
             </div>
           </div>
 
           {/* Bottom Info */}
-          <LoginBootomInfo bottomInfo={bottomInfo}/>
+          <LoginBootomInfo bottomInfo={bottomInfo} />
         </div>
       </div>
-     
+
     </>
   );
 };
