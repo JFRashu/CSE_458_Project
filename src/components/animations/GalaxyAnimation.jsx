@@ -18,13 +18,17 @@ const GalaxyAnimation = () => {
     const stars = [];
     const numStars = isMobile ? 100 : 180;
 
+    // Increased speed multiplier - adjust this value to control overall speed
+    // Higher = faster rotation (1.5x, 2x, 3x, etc.)
+    const speedMultiplier = 2.5;
+
     for (let i = 0; i < numStars; i++) {
       const distance = Math.random() * (isMobile ? 180 : 350) + (isMobile ? 30 : 50);
       stars.push({
         angle: Math.random() * Math.PI * 2,
         distance: distance,
         size: Math.random() * (isMobile ? 1.2 : 1.8) + 0.5,
-        speed: (Math.random() * 0.0008 + 0.0004) * (1 + distance / 400),
+        speed: (Math.random() * 0.0008 + 0.0004) * (1 + distance / 400) * speedMultiplier, // Increased speed
         twinkle: Math.random() * Math.PI * 2,
         twinkleSpeed: Math.random() * 0.04 + 0.02,
         color: Math.random() < 0.7 ? 
@@ -41,9 +45,9 @@ const GalaxyAnimation = () => {
         angle: Math.random() * Math.PI * 2,
         distance: Math.random() * (isMobile ? 150 : 280) + (isMobile ? 40 : 80),
         size: Math.random() * (isMobile ? 2 : 3) + (isMobile ? 1.5 : 2),
-        speed: Math.random() * 0.006 + 0.003,
+        speed: (Math.random() * 0.006 + 0.003) * speedMultiplier, // Increased speed
         twinkle: Math.random() * Math.PI * 2,
-        twinkleSpeed: Math.random() * 0.3 + 0.15,
+        twinkleSpeed: Math.random() * 0.03 + 0.015,
         color: { r: 196, g: 181, b: 253 },
         opacity: Math.random() * 0.3 + 0.5,
         trailLength: Math.random() * 0.1 + 0.08,
