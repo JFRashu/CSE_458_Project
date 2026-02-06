@@ -1,4 +1,4 @@
-import { BarChart3, LogOut } from 'lucide-react';
+import { BarChart3, LogOut, User } from 'lucide-react';
 import React from 'react'
 
 export const ProfileDropdown = ({user,navigate,setActiveLink,setIsProfileOpen,handleLogout}) => {
