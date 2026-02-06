@@ -61,8 +61,8 @@ const Navbar = ({ navigate: propNavigate }) => {
             <LogoSection navigate={navigate} setActiveLink={setActiveLink} />
 
             {/* Desktop Navigation Links */}
-          
-          <DesktopNavigationLinks menuItems={menuItems} activeLink={activeLink} setActiveLink={setActiveLink} navigate={navigate} />
+
+            <DesktopNavigationLinks menuItems={menuItems} activeLink={activeLink} setActiveLink={setActiveLink} navigate={navigate} />
             {/* Desktop Auth Buttons */}
             <div className="hidden md:flex items-center space-x-3">
               {isAuthenticated ? (
