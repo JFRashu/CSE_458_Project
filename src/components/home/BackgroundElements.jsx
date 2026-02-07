@@ -4,7 +4,7 @@ import { Heart } from 'lucide-react';
  * BackgroundElements - All background rendering with animations
  * Includes: particles, shapes, hearts, stars, sparkles, waves, rings, grids, spotlight
  */
-const BackgroundElements = ({ 
+export const  BackgroundElements = ({ 
   particles, 
   shapes, 
   floatingHearts, 
@@ -320,4 +320,4 @@ const BackgroundElements = ({
   );
 };
 
-export default BackgroundElements;
+

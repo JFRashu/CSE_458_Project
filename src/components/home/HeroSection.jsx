@@ -1,135 +1,58 @@
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart, Sparkles, Star } from 'lucide-react';
 
-const HeroSection = ({ navigate, isAuthenticated }) => {
+export const HeroSection = ({ navigate}) => {
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Outfit:wght@400;500;600;700&display=swap');
-        
-        @keyframes fade-in-down {
-          from {
-            opacity: 0;
-            transform: translateY(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes float-animation {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        
-        .animate-fade-in-down {
-          animation: fade-in-down 0.8s ease-out forwards;
-        }
-        
-        .animate-slide-up {
-          animation: slide-up 0.8s ease-out forwards;
-        }
-        
-        .animate-float {
-          animation: float-animation 4s ease-in-out infinite;
-        }
-      `}</style>
+    
+      <div className="text-center mb-16 max-w-4xl opacity-0 animate-fade-in-up">
+            <div className="mb-8 inline-block animate-float-gentle">
+              <div className="relative">
+                {/* Multiple Pulsing rings */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 opacity-30 animate-ping"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 opacity-20 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-400 to-amber-500 opacity-15 animate-ping" style={{ animationDelay: '1s' }}></div>
 
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 pt-32">
-        <div className="max-w-5xl mx-auto text-center">
-          {/* Decorative Icon */}
-          <div className="inline-block mb-8 animate-float">
-            <div className="relative">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 opacity-20 animate-pulse blur-xl"></div>
-              <div className="relative bg-gradient-to-br from-orange-500 to-red-600 p-6 rounded-2xl shadow-2xl">
-                <Heart className="text-white" size={48} strokeWidth={1.5} fill="white" />
+                <div className="relative bg-white p-2 rounded-full shadow-2xl animate-glow-pulse">
+                  <div className="bg-gradient-to-br from-amber-500 via-orange-500 to-orange-600 p-6 rounded-full">
+                    <Heart size={48} className="text-white" strokeWidth={2.5} />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+            <h1
+              className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight text-gray-800"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Your Emotional Wellness Companion
+            </h1>
 
-          {/* Main Heading */}
-          <h1 
-            className="text-6xl md:text-7xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-orange-600 to-gray-900 leading-tight animate-fade-in-down"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
-            Your Mental Health Sanctuary
-          </h1>
+            <p className="text-xl md:text-2xl text-gray-700 font-medium mb-8" style={{ fontFamily: "'Lora', serif" }}>
+              Track, understand, and improve your emotional wellbeing with AI-powered insights
+            </p>
 
-          {/* Subtitle */}
-          <p 
-            className="text-xl md:text-2xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up"
-            style={{ fontFamily: "'Outfit', sans-serif", animationDelay: '0.2s' }}
-          >
-            Explore your emotions, find calm, and nurture your mental wellbeing. MindfulSpace is your companion on the journey to emotional wellness.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-            {!isAuthenticated ? (
-              <>
-                <button
-                  onClick={() => navigate('/register')}
-                  className="relative overflow-hidden px-10 py-4 text-lg font-bold text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 active:scale-95 group"
-                  style={{ fontFamily: "'Outfit', sans-serif" }}
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    Start Your Journey
-                    <Sparkles size={20} className="group-hover:rotate-180 transition-transform duration-500" />
-                  </span>
-                  <div className="absolute inset-0 bg-white/20 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-                </button>
-
-                <button
-                  onClick={() => navigate('/login')}
-                  className="px-10 py-4 text-lg font-bold text-orange-600 bg-white border-2 border-orange-300 hover:bg-orange-50 rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 active:scale-95"
-                  style={{ fontFamily: "'Outfit', sans-serif" }}
-                >
-                  Login
-                </button>
-              </>
-            ) : (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <button
-                onClick={() => navigate('/dashboard')}
-                className="px-10 py-4 text-lg font-bold text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 active:scale-95"
+                onClick={() => navigate('/register')}
+                className="relative overflow-hidden bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold px-10 py-4 rounded-2xl transition-all shadow-xl transform hover:scale-105 active:scale-95 text-base group"
                 style={{ fontFamily: "'Outfit', sans-serif" }}
               >
-                Go to Dashboard
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  Get Started Free
+                  <Star size={18} className="group-hover:rotate-180 transition-transform duration-500" />
+                </span>
+                <div className="absolute inset-0 bg-white/20 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
               </button>
-            )}
-          </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.6s' }}>
-            {[
-              { number: '1M+', label: 'Emotions Tracked' },
-              { number: '500K', label: 'Active Users' },
-              { number: '98%', label: 'Satisfaction' }
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-3xl font-bold text-orange-600 mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  {stat.number}
-                </div>
-                <p className="text-gray-600 text-sm" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+              <button
+                onClick={() => navigate('/login')}
+                className="bg-white hover:bg-gray-50 text-gray-800 font-bold px-10 py-4 rounded-2xl transition-all shadow-lg border-2 border-gray-200 hover:border-orange-300 text-base"
+                style={{ fontFamily: "'Outfit', sans-serif" }}
+              >
+                Sign In
+              </button>
+            </div>
+
+            <p className="text-sm text-orange-900 mt-4">No credit card required • Free forever</p>
           </div>
-        </div>
-      </div>
-    </>
   );
 };
 
-export default HeroSection;
