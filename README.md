@@ -1,12 +1,19 @@
 # 🧠 MindfulSpace - Emotional Wellness Companion
 
-![MindfulSpace Banner](https://img.shields.io/badge/MindfulSpace-Emotional%20Wellness-orange?style=for-the-badge)
-![React](https://img.shields.io/badge/React-18.x-61dafb?style=for-the-badge&logo=react)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-
 > **Track, understand, and improve your emotional wellbeing with AI-powered insights**
 
 MindfulSpace is a modern, beautifully designed emotional wellness application that helps users track their emotions, gain personalized insights, and build better mental health habits through science-backed techniques.
+
+---
+
+## 🎥 Demo
+
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/13M8dsZhKrI5aQug0tD53MI8dZmWFjDs5/view?usp=drive_link">
+    📺 Watch Full Demo Video
+  </a>
+</p>
 
 ---
 
@@ -45,64 +52,25 @@ MindfulSpace is a modern, beautifully designed emotional wellness application th
 ### Installation
 
 1. **Clone the repository**
-   ```bash
+```bash
    git clone https://github.com/yourusername/mindfulspace.git
    cd mindfulspace
-   ```
+```
 
 2. **Install dependencies**
-   ```bash
+```bash
    npm install
    # or
    yarn install
-   ```
+```
 
 3. **Start the development server**
-   ```bash
+```bash
    npm start
    # or
    yarn start
-   ```
-
-4. **Open your browser**
-   ```
-   Navigate to http://localhost:3000
-   ```
-
 ---
 
-## 📁 Project Structure
-
-```
-mindfulspace/
-├── public/
-│   ├── index.html
-│   └── assets/
-├── src/
-│   ├── components/
-│   │   ├── home/
-│   │   │   ├── BackgroundElements.jsx
-│   │   │   └── homeStyles.js
-│   │   ├── AnimationBackground.jsx
-│   │   └── Footer.jsx
-│   ├── contexts/
-│   │   └── AuthContext.jsx
-│   ├── data/
-│   │   └── emotionsData.js
-│   ├── pages/
-│   │   ├── HomePage.jsx
-│   │   ├── DashboardPage.jsx
-│   │   ├── LoginPage.jsx
-│   │   └── RegisterPage.jsx
-│   ├── utils/
-│   │   └── navigation.js
-│   ├── App.jsx
-│   └── index.js
-├── package.json
-└── README.md
-```
-
----
 
 ## 🎨 Tech Stack
 
@@ -111,6 +79,12 @@ mindfulspace/
 - **Lucide React** - Beautiful, customizable icons
 - **Tailwind CSS** - Utility-first CSS framework
 - **Custom Animations** - CSS keyframes and transitions
+
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express** - Web application framework
+- **MongoDB** - NoSQL database
+- **JWT** - Secure authentication
 
 ### State Management
 - **React Context API** - For authentication and global state
@@ -239,17 +213,17 @@ We welcome contributions! Please follow these steps:
 
 1. **Fork the repository**
 2. **Create a feature branch**
-   ```bash
+```bash
    git checkout -b feature/AmazingFeature
-   ```
+```
 3. **Commit your changes**
-   ```bash
+```bash
    git commit -m 'Add some AmazingFeature'
-   ```
+```
 4. **Push to the branch**
-   ```bash
+```bash
    git push origin feature/AmazingFeature
-   ```
+```
 5. **Open a Pull Request**
 
 ### Contribution Guidelines
@@ -261,9 +235,21 @@ We welcome contributions! Please follow these steps:
 
 ---
 
+## 👥 Team
+
+### Frontend Development
+- **Jannatul Farzana Rashumoni** - [jannatulalam2019@gmail.com](mailto:jannatulalam2019@gmail.com)
+
+### Backend Development
+- **Raisatul Mukarrama** - [u2004092@student.cuet.ac.bd](mailto:u2004092@student.cuet.ac.bd)
+- **Atikia Faiza** - [u2004097@student.cuet.ac.bd](mailto:u2004097@student.cuet.ac.bd)
+
+---
+
 ## 🐛 Known Issues
 
 - None currently reported
+
 ---
 
 ## 🙏 Acknowledgments
@@ -276,6 +262,11 @@ We welcome contributions! Please follow these steps:
 
 ---
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
 
 ## 🌟 Show Your Support
 
