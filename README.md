@@ -286,3 +286,4 @@ If MindfulSpace helped you on your wellness journey, please consider:
 [⬆ Back to Top](#-mindfulspace---emotional-wellness-companion)
 
 </div>
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/JFRashu/CSE_458_Project)
